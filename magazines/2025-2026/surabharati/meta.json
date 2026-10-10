@@ -1,0 +1,16 @@
+{
+  "title": "Surabharati",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of Sanskrit",
+  "description": "Vedic literature, Classical Sanskrit poetry, Indian philosophical schools, and grammar.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "sanskrit",
+    "vedic",
+    "philosophy",
+    "grammar"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
