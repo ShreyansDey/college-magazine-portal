@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ edition.title }} | Vidyamandira Reader</title>
+  <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/logo.jpg') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="reader-body">
+  <div class="reader-shell" id="readerContainer">
+    <!-- Top Reader Bar -->
+    <header class="reader-topbar">
+      <div class="reader-left-group">
+        <a href="{{ url_for('home') }}" class="reader-back-btn" title="Return to Publications Showcase">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Showcase</span>
+        </a>
+        <div class="reader-edition-meta">
+          <h1 class="reader-edition-title">{{ edition.title }}</h1>
+          <div class="reader-submeta-pills">
+            <span class="reader-badge reader-cat-{{ edition.category|lower }}">{{ edition.category }}</span>
+            <span class="reader-badge">{{ edition.department }}</span>
+            <span class="reader-badge">{{ edition.academic_year }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reader-right-group">
+        <button type="button" class="reader-action-btn" id="readerThemeToggle" title="Toggle Light/Dark Theme" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button type="button" class="reader-action-btn" id="fullscreenBtn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">
+          <i class="fa-solid fa-expand"></i>
+          <span>Fullscreen</span>
+        </button>
+        <a href="{{ edition.entrypoint }}" target="_blank" rel="noopener" class="reader-action-btn reader-open-direct" title="Open directly in new tab" aria-label="Open in new window">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span>Open Direct</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Embedded Sandboxed Iframe Container -->
+    <main class="reader-iframe-container">
+      <iframe
+        id="magazineIframe"
+        class="reader-frame"
+        src="{{ edition.entrypoint }}"
+        title="{{ edition.title }}"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+        loading="lazy"
+      ></iframe>
+    </main>
+  </div>
+
+  <script>
+    // Synchronize Theme
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    const themeBtn = document.getElementById('readerThemeToggle');
+    if (themeBtn) {
+      themeBtn.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+      themeBtn.addEventListener('click', () => {
+        const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+        themeBtn.innerHTML = nextTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+      });
+    }
+
+    // Fullscreen Toggle
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const readerContainer = document.getElementById('readerContainer');
+
+    if (fullscreenBtn && readerContainer) {
+      fullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          readerContainer.requestFullscreen().catch(err => {
+            console.error(`Error entering fullscreen: ${err.message}`);
+          });
+          fullscreenBtn.innerHTML = '<i class="fa-solid fa-compress"></i> <span>Exit Fullscreen</span>';
+        } else {
+          document.exitFullscreen();
+          fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i> <span>Fullscreen</span>';
+        }
+      });
+
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) {
+          fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i> <span>Fullscreen</span>';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
