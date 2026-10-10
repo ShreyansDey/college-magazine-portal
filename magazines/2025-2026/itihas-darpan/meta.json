@@ -1,0 +1,16 @@
+{
+  "title": "Itihas Darpan",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of History",
+  "description": "Indian historical epochs, regional history of Bengal, and archival research studies.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "history",
+    "bengal",
+    "archives",
+    "heritage"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
