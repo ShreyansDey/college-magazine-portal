@@ -1,4 +1,5 @@
 # Contributing Guide — Sub-Team Developer Handbook
+
 ## College Unified Magazine Portal
 
 > **READ THIS ENTIRE DOCUMENT BEFORE TOUCHING ANY FILES.**
@@ -6,7 +7,7 @@
 
 ---
 
-## 1. Welcome, Sub-Team Developer!
+## 1. Welcome, Sub-Team Developer
 
 You are building a magazine "plugin" — a self-contained mini-website — that will be automatically discovered and displayed by the College Unified Magazine Portal. Your job is simple:
 
@@ -93,6 +94,7 @@ Create a file named `meta.json` in your root directory. Copy this template and f
 All paths inside your `index.html` MUST be **relative**, not absolute.
 
 ### ✅ Correct (Relative Paths)
+
 ```html
 <link rel="stylesheet" href="css/style.css">
 <script src="js/main.js"></script>
@@ -101,6 +103,7 @@ All paths inside your `index.html` MUST be **relative**, not absolute.
 ```
 
 ### ❌ Wrong (Absolute Paths — Will Break)
+
 ```html
 <link rel="stylesheet" href="/css/style.css">
 <img src="/static/magazines/2026/departmental/cs/images/cover.jpg">
@@ -153,12 +156,14 @@ If you need to include large assets, compress them. Videos should be self-hosted
 ## 9. Git Workflow — Step by Step
 
 ### Step 1 — Fork & Clone (if not yet done)
+
 ```bash
 git clone https://github.com/<org>/college-magazine-portal.git
 cd college-magazine-portal
 ```
 
 ### Step 2 — Create Your Branch
+
 Name your branch: `<category>/<sub-id>/<year>`
 
 ```bash
@@ -166,18 +171,23 @@ git checkout -b departmental/cs/2026
 ```
 
 ### Step 3 — Build Your Magazine
+
 Work inside your assigned directory only:
+
 ```
 static/magazines/2026/departmental/cs/
 ```
 
 ### Step 4 — Validate Before Submitting
+
 Run the validation script (if provided):
+
 ```bash
 python tools/validate_edition.py static/magazines/2026/departmental/cs/
 ```
 
 This checks:
+
 - `index.html` exists
 - `meta.json` exists and is valid
 - `published` is `false`
@@ -185,6 +195,7 @@ This checks:
 - No files over size limits
 
 ### Step 5 — Commit Your Work
+
 ```bash
 git add static/magazines/2026/departmental/cs/
 git commit -m "feat: add CS department magazine 2026"
@@ -192,6 +203,7 @@ git push origin departmental/cs/2026
 ```
 
 ### Step 6 — Open a Pull Request
+
 - Go to the GitHub repository.
 - Click **"Compare & pull request"** for your branch.
 - Title: `[Departmental] CS Magazine 2026`
@@ -231,6 +243,7 @@ Your PR will be rejected if any of the following fail:
 ## 12. Quick Reference — Starter Template
 
 Your starter directory template is at:
+
 ```
 static/magazines/TEMPLATE/
 ├── index.html   (minimal valid HTML page)
@@ -238,6 +251,7 @@ static/magazines/TEMPLATE/
 ```
 
 Copy it as a starting point:
+
 ```bash
 cp -r static/magazines/TEMPLATE/ static/magazines/2026/departmental/cs/
 ```
