@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Vidyamandira Patrika | Annual Publications{% endblock %}
+
+{% block content %}
+<!-- Classical Collegiate Editorial Hero (Inspired by Reference 3: Telos Classical) -->
+<section class="classical-editorial-hero">
+  <div class="classical-hero-grid">
+    <!-- Left Column: Editorial Manifesto & Prestige -->
+    <div class="classical-manifesto-card">
+      <div class="classical-heritage-seal">
+        <span class="heritage-crest-pill">ESTD 1941 • BELUR MATH</span>
+        <span class="heritage-accreditation">NAAC A++ (CGPA 3.58)</span>
+      </div>
+
+      <h1 class="classical-headline">
+        Education for a life <br>
+        <em class="classical-serif-italic">well-lived.</em>
+      </h1>
+
+      <p class="classical-intro">
+        The <strong>Vidyamandira Patrika</strong> represents the collegiate crown jewel of Ramakrishna Mission Vidyamandira. Rooted in Swami Vivekananda's ideals of character-building and intellectual rigor, this annual volume weaves together student literature, philosophical inquiries, scientific essays, and campus retrospectives.
+      </p>
+
+      <div class="classical-quote-block">
+        <div class="quote-stripe"></div>
+        <div class="quote-content">
+          <p class="quote-text">
+            "We want that education by which character is formed, strength of mind is increased, the intellect is expanded, and by which one can stand on one's own feet."
+          </p>
+          <span class="quote-author">— Swami Vivekananda, Complete Works</span>
+        </div>
+      </div>
+
+      <div class="classical-cta-group">
+        {% if annual_magazines %}
+        <button type="button" class="btn-classical-primary" onclick="openComingSoonModal({ title: 'Vidyamandira Patrika ({{ annual_magazines[0].academic_year }})', department: 'College Editorial Board', category: 'Annual', year: '{{ annual_magazines[0].academic_year }}', desc: '{{ annual_magazines[0].description }}' })">
+          <i class="fa-solid fa-book-open"></i>
+          <span>Read Latest Edition ({{ annual_magazines[0].academic_year }})</span>
+        </button>
+        {% endif %}
+        <a href="#annual-archive" class="btn-classical-secondary">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>Browse Archives</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Column: Classical Visual Showcase & Portrait -->
+    <div class="classical-showcase-column">
+      <div class="classical-photo-frame">
+        <img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Vidyamandira Prayer Shrine Altar" class="classical-hero-photo">
+        <div class="photo-caption-bar">
+          <span class="caption-title">Central Prayer Altar, Vidyamandira</span>
+          <span class="caption-sub">Sri Ramakrishna, Holy Mother Sri Sarada Devi &amp; Swami Vivekananda</span>
+        </div>
+      </div>
+
+      <div class="classical-monastic-message-card">
+        <div class="message-header">
+          <i class="fa-solid fa-feather-pointed message-icon"></i>
+          <div>
+            <h3 class="message-title">From the Editorial Board</h3>
+            <span class="message-designation">Ramakrishna Mission Saradapitha</span>
+          </div>
+        </div>
+        <p class="message-body">
+          Every volume of the Patrika is an offering of creative introspection by residential students, guided by the monastic teachers and faculty, documenting our perennial search for truth and service.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Annual Archive Timeline Section -->
+<section class="annual-archive-section" id="annual-archive">
+  <div class="archive-section-header">
+    <div class="header-left-title">
+      <span class="section-kicker">HISTORICAL CATALOGUE</span>
+      <h2 class="archive-main-heading">Vidyamandira Patrika Editions</h2>
+    </div>
+    <div class="archive-badge-pill">
+      <span>Annual Literary Retrospective</span>
+    </div>
+  </div>
+
+  <div class="annual-editions-grid">
+    {% for mag in annual_magazines %}
+    <article class="annual-edition-card"
+             data-has-reader="{{ 'true' if mag.has_reader else 'false' }}"
+             data-read-url="{{ mag.read_url }}"
+             data-title="{{ mag.title }}"
+             data-department="{{ mag.department }}"
+             data-category="Annual"
+             data-year="{{ mag.academic_year }}"
+             data-desc="{{ mag.description }}"
+             onclick="handlePublicationCardClick(this)">
+      <div class="edition-cover-side">
+        {% if mag.cover_url %}
+        <img src="{{ mag.cover_url }}" alt="{{ mag.title }} Cover" class="edition-cover-img" decoding="async">
+        {% else %}
+        <div class="edition-cover-placeholder">
+          <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Emblem" class="thumb-crest-img">
+          <span>{{ mag.title }}</span>
+        </div>
+        {% endif %}
+        <span class="edition-session-ribbon">{{ mag.academic_year }}</span>
+      </div>
+
+      <div class="edition-details-side">
+        <div class="edition-header-meta">
+          <span class="edition-dept-badge">{{ mag.department }}</span>
+          <span class="edition-published-date">{{ mag.academic_year }} Edition</span>
+        </div>
+
+        <h3 class="edition-title">{{ mag.title }}</h3>
+        <p class="edition-description">{{ mag.description }}</p>
+
+        {% if mag.tags %}
+        <div class="edition-tags-row">
+          {% for t in mag.tags %}
+          <span class="edition-tag">#{{ t }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="edition-action-bar">
+          {% if mag.has_reader %}
+          <a href="{{ mag.read_url }}" class="btn-read-edition" onclick="event.stopPropagation();">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Read Interactive Edition</span>
+          </a>
+          <a href="{{ mag.entrypoint }}" target="_blank" class="btn-edition-direct" onclick="event.stopPropagation();" title="Open Fullscreen Reader" aria-label="Open Fullscreen Reader">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          {% else %}
+          <button type="button" class="btn-read-edition" onclick="event.stopPropagation(); openComingSoonModal({ title: '{{ mag.title }}', department: '{{ mag.department }}', category: 'Annual', year: '{{ mag.academic_year }}', desc: '{{ mag.description }}' })">
+            <i class="fa-solid fa-clock"></i>
+            <span>In Compilation</span>
+          </button>
+          <button type="button" class="btn-edition-direct" onclick="event.stopPropagation(); openComingSoonModal({ title: '{{ mag.title }}', department: '{{ mag.department }}', category: 'Annual', year: '{{ mag.academic_year }}', desc: '{{ mag.description }}' })" title="Volume currently in compilation" aria-label="Volume currently in compilation">
+            <i class="fa-solid fa-clock"></i>
+          </button>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% else %}
+    <div class="empty-archive-box">
+      <h3>Annual Patrika Volume In Production</h3>
+      <p>The upcoming edition of Vidyamandira Patrika for the current session is being compiled by the College Editorial Board.</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
