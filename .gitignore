@@ -37,6 +37,8 @@ venv.bak/
 *.key
 *.pem
 admins.json
+data/
+data/admins.json
 
 # IDE & Editors
 .vscode/
@@ -56,3 +58,16 @@ htmlcov/
 # Logs
 *.log
 logs/
+
+# Agent Frameworks & Local Tooling (GSD, Ralph, Roo Code)
+.agent/
+.agents/
+.gemini/
+.gsd/
+adapters/
+scripts/
+GSD-STYLE.md
+PROJECT_RULES.md
+model_capabilities.yaml
+VERSION
+.markdownlint.json
