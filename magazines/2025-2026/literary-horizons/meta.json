@@ -1,0 +1,16 @@
+{
+  "title": "Literary Horizons",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of English",
+  "description": "Literary criticism, world literature, poetry, and student creative writing monographs.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "english",
+    "literature",
+    "criticism",
+    "poetry"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
