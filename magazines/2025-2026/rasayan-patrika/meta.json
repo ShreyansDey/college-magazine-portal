@@ -1,0 +1,16 @@
+{
+  "title": "Rasayan Patrika",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of Chemistry",
+  "description": "Organic and inorganic synthesis, molecular dynamics, crystal structure analysis, and spectroscopic research.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "chemistry",
+    "research",
+    "synthesis",
+    "spectroscopy"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
