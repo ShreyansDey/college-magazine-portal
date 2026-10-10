@@ -1,0 +1,16 @@
+{
+  "title": "Physics Spectrum",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of Physics",
+  "description": "Exploring quantum mechanics, classical electrodynamics, astrophysics, and laboratory monographs.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "physics",
+    "quantum",
+    "science",
+    "astrophysics"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
