@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}Departmental Journals | RKM Vidyamandira{% endblock %}
+
+{% block content %}
+<!-- Academic Research Hub Hero (Inspired by Reference 2: Elevate) -->
+<section class="dept-hub-hero">
+  <div class="dept-hero-header">
+    <div class="dept-header-left">
+      <span class="section-kicker">ACADEMIC RESEARCH &amp; STUDENT SCHOLARSHIP</span>
+      <h1 class="dept-main-title">Departmental Academic Journals</h1>
+      <p class="dept-lead-text">
+        Explore 14 specialized discipline journals published across Science and Humanities &amp; Social Sciences faculties at Ramakrishna Mission Vidyamandira.
+      </p>
+    </div>
+
+    <!-- Quick Faculty Summary Pills -->
+    <div class="faculty-stream-pills">
+      <div class="stream-pill science-stream">
+        <span>Science Departments (8)</span>
+      </div>
+      <div class="stream-pill humanities-stream">
+        <span>Humanities &amp; Social Sciences (6)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Department Switcher Nav (All 14 Official Departments) -->
+  <div class="dept-switcher-bar">
+    <div class="dept-pills-scrollable" id="deptPillsContainer">
+      {% for dept in departments %}
+      <a
+        href="{{ url_for('departments', dept_slug=dept.slug) }}"
+        class="dept-nav-pill {% if selected_dept and selected_dept.slug == dept.slug %}active{% endif %}"
+      >
+        <span class="dept-pill-name">{{ dept.name }}</span>
+        <span class="dept-pill-tag">{{ dept.journal_name }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Active Department Spotlight Bento Section -->
+{% if selected_dept %}
+<section class="active-dept-spotlight">
+  <div class="active-dept-bento-grid">
+    <!-- Left Card: Department Journal Profile -->
+    <div class="dept-profile-card">
+      <div class="dept-faculty-chip faculty-{{ selected_dept.faculty|lower|replace(' ', '-') }}">
+        {{ selected_dept.faculty }} Faculty
+      </div>
+
+      <h2 class="active-dept-title">{{ selected_dept.name }}</h2>
+      <div class="journal-official-title">
+        <span>Official Journal: <strong>{{ selected_dept.journal_name }}</strong></span>
+      </div>
+
+      <p class="dept-focus-desc">{{ selected_dept.description }}</p>
+
+      <div class="dept-stats-row">
+        <div class="dept-stat-box">
+          <span class="stat-num">{{ selected_dept.count }}</span>
+          <span class="stat-lbl">Active Edition(s)</span>
+        </div>
+        <div class="dept-stat-box">
+          <span class="stat-num">B.A. / B.Sc.</span>
+          <span class="stat-lbl">4-Year Honours</span>
+        </div>
+        <div class="dept-stat-box">
+          <span class="stat-num">M.A. / M.Sc.</span>
+          <span class="stat-lbl">PG &amp; Research</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Card: Published Issues for this Department -->
+    <div class="dept-issues-card">
+      <div class="issues-card-header">
+        <h3 class="issues-title">Published Volumes &amp; Issues</h3>
+        <span class="issues-badge">{{ selected_dept.journal_name }}</span>
+      </div>
+
+      <div class="dept-issues-list">
+        {% for mag in selected_dept.magazines %}
+        <div class="dept-issue-row"
+             data-has-reader="{{ 'true' if mag.has_reader else 'false' }}"
+             data-read-url="{{ mag.read_url }}"
+             data-title="{{ mag.title }}"
+             data-department="{{ mag.department }}"
+             data-category="Departmental"
+             data-year="{{ mag.academic_year }}"
+             data-desc="{{ mag.description }}"
+             onclick="handlePublicationCardClick(this)">
+          <div class="issue-thumb-wrap">
+            {% if mag.cover_url %}
+            <img src="{{ mag.cover_url }}" alt="{{ mag.title }} Cover" class="issue-thumb-img" decoding="async">
+            {% else %}
+            <div class="issue-thumb-fallback">
+              <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Emblem" class="thumb-crest-img">
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="issue-content">
+            <div class="issue-session-badge">{{ mag.academic_year }}</div>
+            <h4 class="issue-name">{{ mag.title }}</h4>
+            <p class="issue-snippet">{{ mag.description }}</p>
+            {% if mag.tags %}
+            <div class="issue-tags">
+              {% for t in mag.tags %}
+              <span class="issue-tag">#{{ t }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="issue-actions">
+            {% if mag.has_reader %}
+            <a href="{{ mag.read_url }}" class="btn-issue-read" onclick="event.stopPropagation();">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Read Journal</span>
+            </a>
+            {% else %}
+            <button type="button" class="btn-issue-read" onclick="event.stopPropagation(); openComingSoonModal({ title: '{{ mag.title }}', department: '{{ mag.department }}', category: 'Departmental', year: '{{ mag.academic_year }}', desc: '{{ mag.description }}' })">
+              <i class="fa-solid fa-clock"></i>
+              <span>In Compilation</span>
+            </button>
+            {% endif %}
+          </div>
+        </div>
+        {% else %}
+        <div class="dept-no-issues">
+          <h4>Upcoming Edition in Compilation</h4>
+          <p>The student editorial council for <strong>{{ selected_dept.journal_name }}</strong> is compiling research articles for the upcoming academic session.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- All 14 Departments Directory Bento Grid -->
+<section class="all-depts-directory">
+  <div class="directory-header">
+    <div>
+      <span class="section-kicker">COMPLETE DIRECTORY</span>
+      <h2 class="directory-title">All 14 Academic Departments</h2>
+    </div>
+    <span class="directory-count-badge">14 Department Journals</span>
+  </div>
+
+  <div class="all-depts-grid">
+    {% for dept in departments %}
+    <div class="dept-directory-card faculty-border-{{ dept.faculty|lower|replace(' ', '-') }}">
+      <div class="card-faculty-line">
+        <span class="faculty-tag">{{ dept.faculty }}</span>
+        <span class="dept-status-pill">{% if dept.count > 0 %}{{ dept.count }} Published{% else %}In Review{% endif %}</span>
+      </div>
+
+      <h3 class="card-dept-name">{{ dept.name }}</h3>
+      <div class="card-journal-name">
+        <span>Journal: <strong>{{ dept.journal_name }}</strong></span>
+      </div>
+
+      <p class="card-dept-desc">{{ dept.description }}</p>
+
+      <div class="card-footer-action">
+        <a href="{{ url_for('departments', dept_slug=dept.slug) }}" class="btn-card-explore">
+          <span>Explore Department</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
