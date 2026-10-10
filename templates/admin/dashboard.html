@@ -1,0 +1,654 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Publication Dashboard | Administrator Portal{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard-container">
+
+  <!-- Dashboard Overview Hero -->
+  <section class="admin-dash-hero">
+    <div class="dash-hero-left">
+      <span class="dash-kicker">CONTROL CENTER</span>
+      <h1 class="dash-title">Publications &amp; Micro-Frontends</h1>
+      <p class="dash-desc">
+        Manage departmental journals, hostel bhavan gazettes, and annual publications.
+        Upload student-crafted HTML/CSS archives with instant live deployment.
+      </p>
+    </div>
+
+    <!-- Quick Stats Metric Cards -->
+    <div class="dash-metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon metric-purple"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="metric-info">
+          <strong class="metric-value">{{ magazines|length }}</strong>
+          <span class="metric-label">Total Publications</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon metric-orange"><i class="fa-solid fa-house-chimney"></i></div>
+        <div class="metric-info">
+          <strong class="metric-value">{{ bhavan_mags|length }}</strong>
+          <span class="metric-label">Hostel Bhavans</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon metric-blue"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="metric-info">
+          <strong class="metric-value">{{ dept_mags|length }}</strong>
+          <span class="metric-label">Departmental Journals</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon metric-gold"><i class="fa-solid fa-book-bookmark"></i></div>
+        <div class="metric-info">
+          <strong class="metric-value">{{ annual_mags|length }}</strong>
+          <span class="metric-label">Annual Patrika</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Work Area: Uploader Card + Publications Directory -->
+  <div class="admin-layout-columns">
+
+    <!-- Left Column: Micro-Frontend ZIP Uploader Card -->
+    <aside class="uploader-sidebar-card">
+      <div class="uploader-card-header">
+        <div class="uploader-header-icon">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+        </div>
+        <div>
+          <h2 class="uploader-title">Deploy Micro-Frontend</h2>
+          <p class="uploader-sub">Upload student team ZIP archive</p>
+        </div>
+      </div>
+
+      <form method="POST" action="{{ url_for('admin_bp.upload_magazine') }}" enctype="multipart/form-data" class="uploader-form" id="uploaderForm">
+        <!-- Visual Selection Banner -->
+        <div id="uploaderSelectionNotice" class="uploader-selection-notice"></div>
+
+        <!-- Step 1: Category -->
+        <div class="form-group">
+          <label for="uploadCategory" class="form-label">
+            <i class="fa-solid fa-tags"></i>
+            <span>Publication Category</span>
+          </label>
+          <select id="uploadCategory" name="category" class="form-select" onchange="syncCategoryMagazines()">
+            <option value="Hostel">Hostel Bhavans (5)</option>
+            <option value="Departmental" selected>Departmental Academic (14)</option>
+            <option value="Annual">Annual Patrika (1)</option>
+          </select>
+        </div>
+
+        <!-- Step 2: Academic Year -->
+        <div class="form-group">
+          <label for="uploadYear" class="form-label">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Academic Session</span>
+          </label>
+          <select id="uploadYear" name="academic_year" class="form-select">
+            {% for yr in years %}
+            <option value="{{ yr }}" {% if loop.first %}selected{% endif %}>{{ yr }}</option>
+            {% endfor %}
+            <option value="2026-2027">2026–2027 (Upcoming)</option>
+          </select>
+        </div>
+
+        <!-- Step 3: Target Publication -->
+        <div class="form-group">
+          <label for="uploadSlug" class="form-label">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Target Publication</span>
+          </label>
+          <select id="uploadSlug" name="slug" class="form-select" onchange="syncSelectedMagMeta()">
+            <!-- Populated dynamically via JS -->
+          </select>
+        </div>
+
+        <!-- Optional custom overrides (collapsed by default) -->
+        <details class="uploader-details-accordion">
+          <summary class="details-summary">
+            <i class="fa-solid fa-sliders"></i>
+            <span>Optional Metadata Overrides</span>
+          </summary>
+          <div class="details-content">
+            <div class="form-group-sub">
+              <label class="form-label-sub">Display Title</label>
+              <input type="text" id="metaTitle" name="title" class="form-control-sub" placeholder="Leave blank to use default">
+            </div>
+            <div class="form-group-sub">
+              <label class="form-label-sub">Editorial Department</label>
+              <input type="text" id="metaDept" name="department" class="form-control-sub" placeholder="Leave blank to use default">
+            </div>
+            <div class="form-group-sub">
+              <label class="form-label-sub">Custom Identifier (Slug)</label>
+              <input type="text" id="customSlug" name="custom_slug" class="form-control-sub" placeholder="e.g. computer-science">
+            </div>
+          </div>
+        </details>
+
+        <!-- What is Required Inside the ZIP? (Guide Box for Admin & Students) -->
+        <div class="zip-requirements-box">
+          <div class="req-box-header">
+            <i class="fa-solid fa-circle-info req-header-icon"></i>
+            <span class="req-header-title">Student ZIP Package Requirements</span>
+          </div>
+          <p class="req-box-sub">Share this structure with student editorial teams to ensure error-free automated deployment:</p>
+          <ul class="req-checklist">
+            <li>
+              <i class="fa-solid fa-file-code req-check-icon"></i>
+              <div class="req-item-body">
+                <strong>index.html <span class="badge-mandatory">Mandatory</span></strong>
+                <p>The root micro-frontend entry point displaying the magazine.</p>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-file-lines req-check-icon"></i>
+              <div class="req-item-body">
+                <strong>meta.json <span class="badge-recommended">Recommended</span></strong>
+                <p>Publication metadata: title, department, description, tags.</p>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-image req-check-icon"></i>
+              <div class="req-item-body">
+                <strong>cover.jpg <span class="badge-recommended">Recommended</span></strong>
+                <p>High-resolution cover artwork (standard 3:4 portrait or 4:3).</p>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-link req-check-icon"></i>
+              <div class="req-item-body">
+                <strong>Relative Asset URLs <span class="badge-mandatory">Mandatory</span></strong>
+                <p>Use <code>href="style.css"</code>, NOT absolute <code>/style.css</code>.</p>
+              </div>
+            </li>
+          </ul>
+          <div class="req-box-footer">
+            <a href="{{ url_for('metadata_specs') }}" target="_blank" class="req-doc-link">
+              <i class="fa-solid fa-book-open-reader"></i>
+              <span>View Full Metadata Specifications &amp; Schema</span>
+              <i class="fa-solid fa-arrow-up-right-from-square doc-ext-icon"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Step 4: Drop Zone for ZIP -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fa-solid fa-file-zipper"></i>
+            <span>Package Archive (.ZIP)</span>
+          </label>
+          <div class="drop-zone" id="dropZone" onclick="document.getElementById('zipFileInput').click()">
+            <i class="fa-solid fa-folder-open drop-icon"></i>
+            <span class="drop-text" id="dropFileName">Click or drag &amp; drop student .zip file</span>
+            <span class="drop-hint">Must contain an <code>index.html</code> with relative assets</span>
+            <input type="file" id="zipFileInput" name="zip_file" accept=".zip" required class="hidden-file-input" title="Upload Student ZIP Archive" aria-label="Upload Student ZIP Archive" onchange="handleFileSelected(this)">
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-deploy-submit" id="deployBtn">
+          <i class="fa-solid fa-rocket"></i>
+          <span>Deploy &amp; Update Live Site</span>
+        </button>
+      </form>
+
+      <!-- Starter Kit Card Link -->
+      <div class="starter-kit-callout">
+        <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
+        <div class="callout-body">
+          <strong>Need the student template?</strong>
+          <p>Send the standard starter pack to editorial teams so their relative links and folder structure work right away.</p>
+          <a href="{{ url_for('admin_bp.download_starter_kit') }}" class="btn-download-kit">
+            <i class="fa-solid fa-download"></i>
+            <span>Download Starter Kit (.zip)</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Column: Interactive Publications Directory -->
+    <main class="publications-directory-column">
+      <div class="directory-toolbar">
+        <div class="directory-tabs-row" id="adminCategoryTabs">
+          <button type="button" class="admin-tab-btn active" data-tab="hostel" onclick="switchAdminTab('hostel', this)">
+            <i class="fa-solid fa-house"></i>
+            <span>Hostel Bhavans ({{ bhavan_mags|length }})</span>
+          </button>
+          <button type="button" class="admin-tab-btn" data-tab="dept" onclick="switchAdminTab('dept', this)">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Departmental ({{ dept_mags|length }})</span>
+          </button>
+          <button type="button" class="admin-tab-btn" data-tab="annual" onclick="switchAdminTab('annual', this)">
+            <i class="fa-solid fa-book-bookmark"></i>
+            <span>Annual Patrika ({{ annual_mags|length }})</span>
+          </button>
+        </div>
+
+        <div class="directory-filter-controls">
+          <div class="admin-session-dropdown-wrap">
+            <i class="fa-regular fa-calendar select-icon"></i>
+            <select id="adminSessionSelect" class="admin-session-select" onchange="filterAdminGrid()" aria-label="Filter directory by session">
+              <option value="ALL">All Academic Sessions</option>
+              {% for yr in years %}
+              <option value="{{ yr }}" {% if loop.first %}selected{% endif %}>{{ yr }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="directory-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="adminSearchInput" placeholder="Filter by title or department..." oninput="filterAdminGrid()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 1: Hostel Bhavans -->
+      <section class="admin-pubs-grid admin-tab-content active" id="tab-hostel">
+        {% for mag in bhavan_mags %}
+        <article class="admin-pub-card" data-title="{{ mag.title|lower }}" data-dept="{{ mag.department|lower }}" data-year="{{ mag.academic_year }}">
+          <div class="admin-pub-cover-mini">
+            {% if mag.cover_url %}
+            <img src="{{ mag.cover_url }}" alt="{{ mag.title }} Cover" class="pub-thumb-img">
+            {% else %}
+            <div class="pub-thumb-fallback">
+              <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV" class="thumb-crest-small">
+            </div>
+            {% endif %}
+            <span class="pub-badge-year">{{ mag.academic_year }}</span>
+          </div>
+
+          <div class="admin-pub-details">
+            <div class="pub-card-top-row">
+              <div class="pub-category-pill pill-hostel">Hostel Bhavan</div>
+              {% if mag.has_reader %}
+              <span class="pub-status-pill status-pill-live" title="Active micro-frontend deployed on live site">
+                <i class="fa-solid fa-circle-check"></i> Published
+              </span>
+              {% else %}
+              <span class="pub-status-pill status-pill-draft" title="Awaiting student archive submission">
+                <i class="fa-solid fa-clock"></i> In Compilation
+              </span>
+              {% endif %}
+            </div>
+
+            <h3 class="pub-name">{{ mag.title }}</h3>
+            <span class="pub-dept-name">{{ mag.department }}</span>
+            <p class="pub-snippet">{{ mag.description|truncate(90) }}</p>
+
+            <div class="pub-card-actions">
+              {% if mag.has_reader %}
+              <a href="{{ mag.read_url }}" target="_blank" class="btn-action-preview" title="Preview live in reader shell">
+                <i class="fa-solid fa-eye"></i>
+                <span>Preview</span>
+              </a>
+              {% endif %}
+              <button type="button" class="btn-action-select"
+                data-category="Hostel"
+                data-slug="{{ mag.slug }}"
+                data-title="{{ mag.title|e }}"
+                data-dept="{{ mag.department|e }}"
+                data-year="{{ mag.academic_year }}"
+                onclick="selectForUpload(this)"
+                title="Select this publication in uploader">
+                <i class="fa-solid fa-upload"></i>
+                <span>Update</span>
+              </button>
+              {% if mag.uploaded_by_admin %}
+              <form method="POST" action="{{ url_for('admin_bp.delete_edition', year=mag.academic_year, slug=mag.slug) }}" onsubmit="return confirm('Remove all uploaded files for {{ mag.title }} ({{ mag.academic_year }})? This will revert it back to In Compilation.');" class="delete-form-inline">
+                <button type="submit" class="btn-action-delete" title="Remove uploaded files and reset to In Compilation">
+                  <i class="fa-solid fa-trash-can"></i>
+                  <span>Remove</span>
+                </button>
+              </form>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+
+      <!-- Tab 2: Departmental Academic Journals -->
+      <section class="admin-pubs-grid admin-tab-content" id="tab-dept">
+        {% for mag in dept_mags %}
+        <article class="admin-pub-card" data-title="{{ mag.title|lower }}" data-dept="{{ mag.department|lower }}" data-year="{{ mag.academic_year }}">
+          <div class="admin-pub-cover-mini">
+            {% if mag.cover_url %}
+            <img src="{{ mag.cover_url }}" alt="{{ mag.title }} Cover" class="pub-thumb-img">
+            {% else %}
+            <div class="pub-thumb-fallback">
+              <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV" class="thumb-crest-small">
+            </div>
+            {% endif %}
+            <span class="pub-badge-year">{{ mag.academic_year }}</span>
+          </div>
+
+          <div class="admin-pub-details">
+            <div class="pub-card-top-row">
+              <div class="pub-category-pill pill-dept">Departmental</div>
+              {% if mag.has_reader %}
+              <span class="pub-status-pill status-pill-live" title="Active micro-frontend deployed on live site">
+                <i class="fa-solid fa-circle-check"></i> Published
+              </span>
+              {% else %}
+              <span class="pub-status-pill status-pill-draft" title="Awaiting student archive submission">
+                <i class="fa-solid fa-clock"></i> In Compilation
+              </span>
+              {% endif %}
+            </div>
+
+            <h3 class="pub-name">{{ mag.title }}</h3>
+            <span class="pub-dept-name">{{ mag.department }}</span>
+            <p class="pub-snippet">{{ mag.description|truncate(90) }}</p>
+
+            <div class="pub-card-actions">
+              {% if mag.has_reader %}
+              <a href="{{ mag.read_url }}" target="_blank" class="btn-action-preview" title="Preview live in reader shell">
+                <i class="fa-solid fa-eye"></i>
+                <span>Preview</span>
+              </a>
+              {% endif %}
+              <button type="button" class="btn-action-select"
+                data-category="Departmental"
+                data-slug="{{ mag.slug }}"
+                data-title="{{ mag.title|e }}"
+                data-dept="{{ mag.department|e }}"
+                data-year="{{ mag.academic_year }}"
+                onclick="selectForUpload(this)"
+                title="Select this publication in uploader">
+                <i class="fa-solid fa-upload"></i>
+                <span>Update</span>
+              </button>
+              {% if mag.uploaded_by_admin %}
+              <form method="POST" action="{{ url_for('admin_bp.delete_edition', year=mag.academic_year, slug=mag.slug) }}" onsubmit="return confirm('Remove all uploaded files for {{ mag.title }} ({{ mag.academic_year }})? This will revert it back to In Compilation.');" class="delete-form-inline">
+                <button type="submit" class="btn-action-delete" title="Remove uploaded files and reset to In Compilation">
+                  <i class="fa-solid fa-trash-can"></i>
+                  <span>Remove</span>
+                </button>
+              </form>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+
+      <!-- Tab 3: Annual Patrika -->
+      <section class="admin-pubs-grid admin-tab-content" id="tab-annual">
+        {% for mag in annual_mags %}
+        <article class="admin-pub-card" data-title="{{ mag.title|lower }}" data-dept="{{ mag.department|lower }}" data-year="{{ mag.academic_year }}">
+          <div class="admin-pub-cover-mini">
+            {% if mag.cover_url %}
+            <img src="{{ mag.cover_url }}" alt="{{ mag.title }} Cover" class="pub-thumb-img">
+            {% else %}
+            <div class="pub-thumb-fallback">
+              <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV" class="thumb-crest-small">
+            </div>
+            {% endif %}
+            <span class="pub-badge-year">{{ mag.academic_year }}</span>
+          </div>
+
+          <div class="admin-pub-details">
+            <div class="pub-card-top-row">
+              <div class="pub-category-pill pill-annual">Flagship Annual</div>
+              {% if mag.has_reader %}
+              <span class="pub-status-pill status-pill-live" title="Active micro-frontend deployed on live site">
+                <i class="fa-solid fa-circle-check"></i> Published
+              </span>
+              {% else %}
+              <span class="pub-status-pill status-pill-draft" title="Awaiting student archive submission">
+                <i class="fa-solid fa-clock"></i> In Compilation
+              </span>
+              {% endif %}
+            </div>
+
+            <h3 class="pub-name">{{ mag.title }}</h3>
+            <span class="pub-dept-name">{{ mag.department }}</span>
+            <p class="pub-snippet">{{ mag.description|truncate(90) }}</p>
+
+            <div class="pub-card-actions">
+              {% if mag.has_reader %}
+              <a href="{{ mag.read_url }}" target="_blank" class="btn-action-preview" title="Preview live in reader shell">
+                <i class="fa-solid fa-eye"></i>
+                <span>Preview</span>
+              </a>
+              {% endif %}
+              <button type="button" class="btn-action-select"
+                data-category="Annual"
+                data-slug="{{ mag.slug }}"
+                data-title="{{ mag.title|e }}"
+                data-dept="{{ mag.department|e }}"
+                data-year="{{ mag.academic_year }}"
+                onclick="selectForUpload(this)"
+                title="Select this publication in uploader">
+                <i class="fa-solid fa-upload"></i>
+                <span>Update</span>
+              </button>
+              {% if mag.uploaded_by_admin %}
+              <form method="POST" action="{{ url_for('admin_bp.delete_edition', year=mag.academic_year, slug=mag.slug) }}" onsubmit="return confirm('Remove all uploaded files for {{ mag.title }} ({{ mag.academic_year }})? This will revert it back to In Compilation.');" class="delete-form-inline">
+                <button type="submit" class="btn-action-delete" title="Remove uploaded files and reset to In Compilation">
+                  <i class="fa-solid fa-trash-can"></i>
+                  <span>Remove</span>
+                </button>
+              </form>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+    </main>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script id="magazinesData" type="application/json">{{ magazines|tojson }}</script>
+<script>
+// Data registry for dropdown population
+const ALL_MAGAZINES = JSON.parse(document.getElementById('magazinesData').textContent);
+
+function syncSelectedMagMeta() {
+  const slugSelect = document.getElementById('uploadSlug');
+  if (!slugSelect) return;
+  const selectedSlug = slugSelect.value;
+  const mag = ALL_MAGAZINES.find(m => m.slug === selectedSlug);
+  if (mag) {
+    const titleInput = document.getElementById('metaTitle');
+    const deptInput = document.getElementById('metaDept');
+    const customSlugInput = document.getElementById('customSlug');
+    if (titleInput && !titleInput.value) titleInput.value = mag.title || '';
+    if (deptInput && !deptInput.value) deptInput.value = mag.department || '';
+    if (customSlugInput && !customSlugInput.value) customSlugInput.value = mag.slug || '';
+  }
+}
+
+function syncCategoryMagazines(preselectedSlug = null) {
+  const catSelect = document.getElementById('uploadCategory');
+  const slugSelect = document.getElementById('uploadSlug');
+  if (!catSelect || !slugSelect) return;
+  const cat = catSelect.value;
+  slugSelect.innerHTML = '';
+
+  const seenSlugs = new Set();
+  const filtered = ALL_MAGAZINES.filter(m => {
+    if (m.category && m.category.toLowerCase() === cat.toLowerCase()) {
+      if (!seenSlugs.has(m.slug)) {
+        seenSlugs.add(m.slug);
+        return true;
+      }
+    }
+    return false;
+  });
+
+  filtered.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m.slug;
+    opt.textContent = `${m.title} (${m.department})`;
+    if (preselectedSlug && m.slug === preselectedSlug) {
+      opt.selected = true;
+    }
+    slugSelect.appendChild(opt);
+  });
+
+  if (preselectedSlug) {
+    slugSelect.value = preselectedSlug;
+  }
+}
+
+function selectForUpload(arg1, arg2, arg3, arg4, arg5) {
+  let category, slug, title, dept, year;
+  if (typeof arg1 === 'object' && arg1 !== null) {
+    category = arg1.dataset.category || arg1.getAttribute('data-category');
+    slug = arg1.dataset.slug || arg1.getAttribute('data-slug');
+    title = arg1.dataset.title || arg1.getAttribute('data-title');
+    dept = arg1.dataset.dept || arg1.getAttribute('data-dept');
+    year = arg1.dataset.year || arg1.getAttribute('data-year');
+  } else {
+    category = arg1;
+    slug = arg2;
+    title = arg3;
+    dept = arg4;
+    year = arg5;
+  }
+
+  // 1. Set Category dropdown
+  const catSelect = document.getElementById('uploadCategory');
+  if (catSelect && category) {
+    catSelect.value = category;
+  }
+
+  // 2. Populate target publications for this category and select the slug
+  syncCategoryMagazines(slug);
+
+  // 3. Set Target Publication slug explicitly
+  const slugSelect = document.getElementById('uploadSlug');
+  if (slugSelect && slug) {
+    slugSelect.value = slug;
+  }
+
+  // 4. Set Session / Academic Year
+  const yearSelect = document.getElementById('uploadYear');
+  if (yearSelect && year) {
+    yearSelect.value = year;
+  }
+
+  // 5. Populate metadata inputs
+  const titleInput = document.getElementById('metaTitle');
+  if (titleInput && title) {
+    titleInput.value = title;
+  }
+  const deptInput = document.getElementById('metaDept');
+  if (deptInput && dept) {
+    deptInput.value = dept;
+  }
+  const customSlugInput = document.getElementById('customSlug');
+  if (customSlugInput && slug) {
+    customSlugInput.value = slug;
+  }
+
+  // 6. Open accordion so admin clearly sees filled metadata
+  const accordion = document.querySelector('.uploader-details-accordion');
+  if (accordion) {
+    accordion.open = true;
+  }
+
+  // 7. Visual confirmation banner in uploader card
+  const noticeEl = document.getElementById('uploaderSelectionNotice');
+  if (noticeEl) {
+    noticeEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Ready to update <strong>${title || slug}</strong> &bull; <span style="opacity:0.85;">${category} (${year || 'Current'})</span>`;
+    noticeEl.style.display = 'flex';
+  }
+
+  // 8. Smooth scroll to uploader on phone or desktop with pulse animation
+  const uploaderCard = document.querySelector('.uploader-sidebar-card');
+  if (uploaderCard) {
+    uploaderCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    uploaderCard.classList.remove('card-highlight');
+    // Force reflow to re-trigger CSS animation
+    void uploaderCard.offsetWidth;
+    uploaderCard.classList.add('card-highlight');
+    setTimeout(() => uploaderCard.classList.remove('card-highlight'), 1800);
+  }
+}
+
+function handleFileSelected(input) {
+  const fileName = input.files && input.files[0] ? input.files[0].name : null;
+  const label = document.getElementById('dropFileName');
+  if (fileName) {
+    label.innerHTML = `<strong>Selected:</strong> ${fileName}`;
+    document.getElementById('dropZone').classList.add('file-selected');
+  }
+}
+
+function switchAdminTab(tabKey, btnElement) {
+  const tabs = document.querySelectorAll('.admin-tab-btn');
+  const contents = document.querySelectorAll('.admin-tab-content');
+
+  tabs.forEach(t => t.classList.remove('active'));
+  contents.forEach(c => c.classList.remove('active'));
+
+  if (btnElement) {
+    btnElement.classList.add('active');
+  } else {
+    const activeBtn = document.querySelector(`.admin-tab-btn[data-tab="${tabKey}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+  }
+
+  const target = document.getElementById(`tab-${tabKey}`);
+  if (target) {
+    target.classList.add('active');
+  }
+  filterAdminGrid();
+}
+
+function filterAdminGrid() {
+  const query = (document.getElementById('adminSearchInput')?.value || '').trim().toLowerCase();
+  const sessionFilter = document.getElementById('adminSessionSelect')?.value || 'ALL';
+  const cards = document.querySelectorAll('.admin-pub-card');
+
+  cards.forEach(card => {
+    const t = card.getAttribute('data-title') || '';
+    const d = card.getAttribute('data-dept') || '';
+    const y = card.getAttribute('data-year') || '';
+
+    const matchText = !query || t.includes(query) || d.includes(query);
+    const matchYear = (sessionFilter === 'ALL' || y === sessionFilter);
+
+    card.style.display = (matchText && matchYear) ? 'flex' : 'none';
+  });
+}
+
+// Drag & drop handlers
+const dropZone = document.getElementById('dropZone');
+if (dropZone) {
+  ['dragenter', 'dragover'].forEach(name => {
+    dropZone.addEventListener(name, (e) => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+  });
+  ['dragleave', 'drop'].forEach(name => {
+    dropZone.addEventListener(name, (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+    });
+  });
+  dropZone.addEventListener('drop', (e) => {
+    if (e.dataTransfer.files && e.dataTransfer.files.length) {
+      document.getElementById('zipFileInput').files = e.dataTransfer.files;
+      handleFileSelected(document.getElementById('zipFileInput'));
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  syncCategoryMagazines();
+});
+</script>
+{% endblock %}
