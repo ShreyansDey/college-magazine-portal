@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}RKM Vidyamandira Publications{% endblock %}</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/logo.jpg') }}">
+  <!-- Google Fonts: Editorial Serif + Clean Modern Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v='2.8') }}">
+  <script>
+    // Immediate ambient theme detection before first paint
+    (function() {
+      let saved = localStorage.getItem('theme');
+      if (!saved) {
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var hour = new Date().getHours();
+        saved = (prefersDark || (hour >= 18 || hour < 6)) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="editorial-layout">
+
+  <!-- Left Capsule Dock / Navigation Rail (Ref 1 & 2 inspired) -->
+  <aside class="left-nav-rail" id="leftNavRail" aria-label="Quick Navigation">
+    <div class="rail-top">
+      <a href="{{ url_for('home') }}" class="rail-brand-link" title="Ramakrishna Mission Vidyamandira">
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Crest" class="rail-logo">
+      </a>
+    </div>
+
+    <nav class="rail-menu" aria-label="Primary sidebar">
+      <a href="{{ url_for('home') }}" class="rail-btn {% if request.endpoint == 'home' %}active{% endif %}" title="Showcase &amp; Dashboard" aria-label="Showcase &amp; Dashboard">
+        <svg class="rail-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span class="rail-tooltip">Overview</span>
+      </a>
+      <a href="{{ url_for('annual') }}" class="rail-btn {% if request.endpoint == 'annual' %}active{% endif %}" title="College Annual Patrika" aria-label="College Annual Patrika">
+        <svg class="rail-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M10 2v8l3-2.5 3 2.5V2"></path></svg>
+        <span class="rail-tooltip">Annual Patrika</span>
+      </a>
+      <a href="{{ url_for('departments') }}" class="rail-btn {% if request.endpoint == 'departments' %}active{% endif %}" title="Departmental Academic Journals" aria-label="Departmental Academic Journals">
+        <svg class="rail-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+        <span class="rail-tooltip">Departmental</span>
+      </a>
+      <a href="{{ url_for('bhavans') }}" class="rail-btn {% if request.endpoint == 'bhavans' %}active{% endif %}" title="5 Residential Hostel Bhavans" aria-label="5 Residential Hostel Bhavans">
+        <svg class="rail-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"></line><line x1="6" y1="18" x2="6" y2="11"></line><line x1="10" y1="18" x2="10" y2="11"></line><line x1="14" y1="18" x2="14" y2="11"></line><line x1="18" y1="18" x2="18" y2="11"></line><polygon points="12 2 20 7 4 7 12 2"></polygon></svg>
+        <span class="rail-tooltip">Hostel Bhavans</span>
+      </a>
+      <a href="#about-section" class="rail-btn" title="College Heritage &amp; About" aria-label="College Heritage &amp; About">
+        <svg class="rail-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+        <span class="rail-tooltip">Heritage</span>
+      </a>
+    </nav>
+
+    <div class="rail-bottom">
+      <button type="button" class="rail-btn theme-toggle-btn" id="themeToggleRail" title="Toggle Light/Dark Theme" aria-label="Toggle theme">
+        <svg class="rail-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <span class="rail-tooltip">Theme</span>
+      </button>
+      <a href="https://vidyamandira.ac.in" target="_blank" rel="noopener" class="rail-btn" title="Official Vidyamandira Portal" aria-label="Official Vidyamandira Portal">
+        <svg class="rail-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        <span class="rail-tooltip">Official Site</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-layout-wrapper">
+    <!-- Top Header Bar -->
+    <header class="top-header" id="topHeader">
+      <div class="header-container">
+        <!-- Left: Brand Breadcrumb -->
+        <div class="header-left">
+          <button type="button" class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="header-breadcrumb">
+            <span class="breadcrumb-institute">
+              <span class="brand-long">Ramakrishna Mission Vidyamandira</span>
+              <span class="brand-short">RKM Vidyamandira</span>
+            </span>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-title">Publications Portal</span>
+          </div>
+        </div>
+
+        <!-- Center: Search Pill (Ref 1 & 2 inspired) -->
+        <div class="header-center">
+          <div class="header-search-pill" id="headerSearchPill">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input
+              type="text"
+              id="topSearchInput"
+              placeholder="Search publications, departments, authors..."
+              autocomplete="off"
+              aria-label="Search publications"
+            >
+            <div class="search-kbd-badge">
+              <kbd>⌘K</kbd>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Status Badges & Controls -->
+        <div class="header-right">
+          <div class="header-pill-badge">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Session 2025–26</span>
+          </div>
+          <div class="header-pill-naac">
+            <i class="fa-solid fa-award"></i>
+            <span>NAAC A++</span>
+          </div>
+          <button type="button" class="theme-toggle-btn header-theme-btn" id="themeToggle" title="Toggle Theme" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- Main Content Container -->
+    <main class="main-content-flow">
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Bespoke Editorial Footer (Ref 3 & 4 inspired) -->
+    <footer class="editorial-footer" id="about-section">
+      <div class="footer-inner">
+        <div class="footer-hero-col">
+          <div class="footer-brand-lockup">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Emblem" class="footer-emblem">
+            <div>
+              <h3 class="footer-college-name">Ramakrishna Mission Vidyamandira</h3>
+              <p class="footer-location">Belur Math, Howrah, West Bengal 711202</p>
+            </div>
+          </div>
+          <p class="footer-bio">
+            An autonomous residential college affiliated to the University of Calcutta, managed by Ramakrishna Mission Saradapitha. Grade A++ Accredited by NAAC. Dedicated to Swami Vivekananda's ideals of character building and holistic education.
+          </p>
+          <div class="footer-quote-capsule">
+            <i class="fa-solid fa-quote-left quote-mark"></i>
+            <p>"Education is the manifestation of the perfection already in man."</p>
+            <span class="quote-sign">— Swami Vivekananda</span>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Publications</h4>
+          <ul class="footer-nav-list">
+            <li><a href="#publications" onclick="filterByCategory('Annual')">College Annual Patrika</a></li>
+            <li><a href="#publications" onclick="filterByCategory('Departmental')">Departmental Academic Journals</a></li>
+            <li><a href="#publications" onclick="filterByCategory('Hostel')">Hostel Bhavan Gazettes</a></li>
+            <li><a href="#publications">Heritage Digital Archives</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Department Portals</h4>
+          <ul class="footer-nav-list">
+            <li><a href="#publications">Computer Science &amp; Electronics (CSE Aura)</a></li>
+            <li><a href="#publications">Physics (Spectrum)</a></li>
+            <li><a href="#publications">Bengali (Anwesha)</a></li>
+            <li><a href="#publications">Mathematics &amp; Sanskrit</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Academic Framework</h4>
+          <ul class="footer-nav-list">
+            <li><a href="{{ url_for('editorial_guidelines') }}"><i class="fa-solid fa-book-open"></i> Editorial Board Guidelines</a></li>
+            <li><a href="{{ url_for('metadata_specs') }}"><i class="fa-solid fa-code"></i> Metadata Specifications</a></li>
+            <li><a href="https://vidyamandira.ac.in" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> College Official Website</a></li>
+            <li><a href="{{ url_for('admin_bp.login') }}"><i class="fa-solid fa-shield-halved"></i> Administrator Console</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-sub-bar">
+        <div class="footer-sub-inner">
+          <p class="copyright-text">&copy; 2026 Ramakrishna Mission Vidyamandira. All Rights Reserved. Student Publications Portal.</p>
+          <div class="footer-badges">
+            <span class="sub-badge">ESTD 1941</span>
+            <span class="sub-badge">AUTONOMOUS</span>
+            <span class="sub-badge">BELUR MATH</span>
+            <a href="{{ url_for('admin_bp.login') }}" class="sub-badge admin-badge-btn" title="Administrator Sign-In &amp; 2FA Console">
+              <i class="fa-solid fa-lock"></i> ADMIN ACCESS
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Mobile Drawer Navigation (Root Body Level for Clean Mobile Stacking) -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Logo" class="drawer-logo">
+        <span>Vidyamandira Publications</span>
+      </div>
+      <button type="button" class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <nav class="drawer-nav" aria-label="Mobile drawer navigation">
+      <a href="{{ url_for('home') }}" class="drawer-link {% if request.endpoint == 'home' %}active{% endif %}"><i class="fa-solid fa-house"></i> Overview</a>
+      <a href="{{ url_for('annual') }}" class="drawer-link {% if request.endpoint == 'annual' %}active{% endif %}"><i class="fa-solid fa-book-bookmark"></i> Annual Patrika</a>
+      <a href="{{ url_for('departments') }}" class="drawer-link {% if request.endpoint == 'departments' %}active{% endif %}"><i class="fa-solid fa-graduation-cap"></i> Departmental Journals</a>
+      <a href="{{ url_for('bhavans') }}" class="drawer-link {% if request.endpoint == 'bhavans' %}active{% endif %}"><i class="fa-solid fa-landmark"></i> Hostel Bhavans</a>
+      <a href="{{ url_for('home') }}#about-section" class="drawer-link" onclick="closeDrawer();"><i class="fa-solid fa-feather-pointed"></i> Heritage &amp; Council</a>
+      <a href="https://vidyamandira.ac.in" target="_blank" rel="noopener" class="drawer-link"><i class="fa-solid fa-globe"></i> Official College Portal</a>
+    </nav>
+  </div>
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <!-- Global Coming Soon / Edition In Compilation Modal -->
+  <div class="coming-soon-backdrop" id="comingSoonBackdrop" onclick="closeComingSoonModal()" hidden></div>
+  <div class="coming-soon-dialog" id="comingSoonModal" role="dialog" aria-modal="true" aria-labelledby="comingSoonTitle" hidden>
+    <button type="button" class="modal-close-icon" onclick="closeComingSoonModal()" aria-label="Close modal dialog">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="modal-dialog-content">
+      <div class="modal-status-pill">
+        <span class="status-pulse-dot"></span>
+        <span>VOLUME IN COMPILATION • PRE-PRESS REVIEW</span>
+      </div>
+
+      <div class="modal-header-hero">
+        <div class="modal-emblem-wrap">
+          <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Crest" class="modal-college-crest">
+        </div>
+        <div class="modal-hero-text">
+          <div class="modal-chips-row">
+            <span class="modal-cat-chip" id="comingSoonCategory">Departmental</span>
+            <span class="modal-year-chip" id="comingSoonYear">2025–2026</span>
+          </div>
+          <h2 class="modal-pub-title" id="comingSoonTitle">AURA - CSE Departmental Journal</h2>
+          <span class="modal-dept-line" id="comingSoonDept">Department of Computer Science &amp; Electronics</span>
+        </div>
+      </div>
+
+      <div class="modal-description-box">
+        <p id="comingSoonDesc">
+          This digital edition is currently being compiled and reviewed by the student editorial board. Full interactive layouts, research papers, and literary articles will be published shortly via the College Editorial Portal.
+        </p>
+      </div>
+
+      <div class="modal-meta-grid">
+        <div class="modal-meta-cell">
+          <span class="meta-cell-label">EDITORIAL BODY</span>
+          <strong class="meta-cell-value" id="comingSoonPublisher">Departmental Editorial Board</strong>
+        </div>
+        <div class="modal-meta-cell">
+          <span class="meta-cell-label">ACADEMIC SESSION</span>
+          <strong class="meta-cell-value" id="comingSoonSession">2025–2026</strong>
+        </div>
+        <div class="modal-meta-cell">
+          <span class="meta-cell-label">EDITION FORMAT</span>
+          <strong class="meta-cell-value">Interactive Web / Micro-Frontend</strong>
+        </div>
+        <div class="modal-meta-cell">
+          <span class="meta-cell-label">ACCESS TIER</span>
+          <strong class="meta-cell-value">Open Campus &amp; Scholarly Access</strong>
+        </div>
+      </div>
+
+      <div class="modal-action-row">
+        <button type="button" class="btn-modal-primary" onclick="closeComingSoonModal()">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Other Publications</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript Bundle -->
+  <script src="{{ url_for('static', filename='js/main.js', v='2.6') }}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
