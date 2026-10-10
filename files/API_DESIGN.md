@@ -1,4 +1,5 @@
 # API Design Document
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -41,11 +42,13 @@ Returns a list of all **published** editions.
 | `sub_id`     | string  | No       | Filter by department/bhavan ID (e.g. `cs`, `bhavan1`)|
 
 **Example Request:**
+
 ```
 GET /api/editions?year=2026&category=departmental
 ```
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -84,6 +87,7 @@ GET /api/editions?year=2026&category=departmental
 ```
 
 **Response 200 OK (empty):**
+
 ```json
 {
   "status": "success",
@@ -93,6 +97,7 @@ GET /api/editions?year=2026&category=departmental
 ```
 
 **Response 400 Bad Request (invalid params):**
+
 ```json
 {
   "status": "error",
@@ -115,6 +120,7 @@ Returns a single edition by its ID.
 | `id`      | string | Unique edition ID (e.g. `cs-2026`) |
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -136,6 +142,7 @@ Returns a single edition by its ID.
 ```
 
 **Response 404 Not Found:**
+
 ```json
 {
   "status": "error",
@@ -152,6 +159,7 @@ Returns a sorted list of all years that have at least one published edition.
 **Authentication:** None
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -168,6 +176,7 @@ Returns available categories and their sub-IDs with edition counts.
 **Authentication:** None
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -198,6 +207,7 @@ Returns ALL editions including unpublished ones. Admin use only.
 **Authentication:** Session cookie (Admin or Super-Admin role)
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -230,6 +240,7 @@ Update edition metadata or publication status.
 **Content-Type:** `application/json`
 
 **Request Body (all fields optional — partial update):**
+
 ```json
 {
   "title": "Updated Title",
@@ -242,6 +253,7 @@ Update edition metadata or publication status.
 ```
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -251,6 +263,7 @@ Update edition metadata or publication status.
 ```
 
 **Response 400 Bad Request:**
+
 ```json
 {
   "status": "error",
@@ -259,6 +272,7 @@ Update edition metadata or publication status.
 ```
 
 **Response 401 Unauthorized:**
+
 ```json
 {
   "status": "error",
@@ -267,6 +281,7 @@ Update edition metadata or publication status.
 ```
 
 **Response 404 Not Found:**
+
 ```json
 {
   "status": "error",
@@ -285,6 +300,7 @@ Forces the backend to re-scan the `static/magazines/` directory and rebuild the 
 **Request Body:** None
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -298,6 +314,7 @@ Forces the backend to re-scan the `static/magazines/` directory and rebuild the 
 ```
 
 **Response 200 OK (with scan errors):**
+
 ```json
 {
   "status": "partial",
@@ -323,6 +340,7 @@ Returns a list of all admin accounts. **Super-Admin only.**
 **Authentication:** Session cookie (Super-Admin role only)
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -356,6 +374,7 @@ Create a new admin account. **Super-Admin only.**
 **Content-Type:** `application/json`
 
 **Request Body:**
+
 ```json
 {
   "username": "neha",
@@ -365,11 +384,13 @@ Create a new admin account. **Super-Admin only.**
 ```
 
 **Validation Rules:**
+
 - `username`: 3–30 characters, alphanumeric + underscore only
 - `password`: min 8 characters, at least 1 uppercase, 1 digit, 1 special character
 - `role`: must be `"admin"` (only super-admin can set super-admin role)
 
 **Response 201 Created:**
+
 ```json
 {
   "status": "success",
@@ -379,6 +400,7 @@ Create a new admin account. **Super-Admin only.**
 ```
 
 **Response 409 Conflict:**
+
 ```json
 {
   "status": "error",
@@ -396,6 +418,7 @@ Delete an admin account. **Super-Admin only.** Cannot delete own account.
 **CSRF:** Token required
 
 **Response 200 OK:**
+
 ```json
 {
   "status": "success",
@@ -404,6 +427,7 @@ Delete an admin account. **Super-Admin only.** Cannot delete own account.
 ```
 
 **Response 403 Forbidden:**
+
 ```json
 {
   "status": "error",
