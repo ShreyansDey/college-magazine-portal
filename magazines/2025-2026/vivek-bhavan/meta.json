@@ -1,0 +1,16 @@
+{
+  "title": "Vivek Bhavan Patrika",
+  "academic_year": "2025-2026",
+  "category": "Hostel",
+  "department": "Vivek Bhavan",
+  "description": "Hostel gazette named after Swami Vivekananda, featuring intellectual discourses and sports chronicles.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "vivek-bhavan",
+    "hostel",
+    "vivekananda",
+    "youth"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
