@@ -1,4 +1,5 @@
 # Data Design & Metadata Schema
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -22,6 +23,7 @@ The portal uses a **filesystem-based data layer**. There is no relational databa
 ## 2. Edition Metadata — meta.json
 
 ### 2.1 Location Pattern
+
 ```
 static/magazines/<YEAR>/<CATEGORY>/<SUB_ID>/meta.json
 ```
@@ -45,6 +47,7 @@ static/magazines/<YEAR>/<CATEGORY>/<SUB_ID>/meta.json
 ### 2.3 Example meta.json Files
 
 #### Annual Magazine
+
 ```json
 {
   "id": "annual-2026",
@@ -62,6 +65,7 @@ static/magazines/<YEAR>/<CATEGORY>/<SUB_ID>/meta.json
 ```
 
 #### Departmental Magazine
+
 ```json
 {
   "id": "cs-2026",
@@ -79,6 +83,7 @@ static/magazines/<YEAR>/<CATEGORY>/<SUB_ID>/meta.json
 ```
 
 #### Bhavan Magazine
+
 ```json
 {
   "id": "bhavan1-2026",
@@ -100,6 +105,7 @@ static/magazines/<YEAR>/<CATEGORY>/<SUB_ID>/meta.json
 ## 3. Admin Credential Store — admins.json
 
 ### 3.1 Location
+
 ```
 data/admins.json
 ```
@@ -169,6 +175,7 @@ EDITION_INDEX = {
 ```
 
 Key differences from `meta.json`:
+
 - `cover_image` is converted to a **full absolute URL path** (from relative filename)
 - `path` field is **added** (computed from directory location)
 - Python `bool` is used instead of JSON `boolean`
