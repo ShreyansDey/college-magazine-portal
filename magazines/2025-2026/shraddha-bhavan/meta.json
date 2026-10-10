@@ -1,0 +1,18 @@
+{
+  "title": "Shraddha Bhavan Patrika",
+  "academic_year": "2025-2026",
+  "category": "Hostel",
+  "department": "Shraddha Bhavan",
+  "description": "Residential hall gazette cultivating deep reverence, self-reliance, and contemplative writing.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "shraddha-bhavan",
+    "hostel",
+    "essays",
+    "reverence"
+  ],
+  "featured": false,
+  "published_at": "2026-10-10",
+  "status": "published",
+  "uploaded_by_admin": true
+}
