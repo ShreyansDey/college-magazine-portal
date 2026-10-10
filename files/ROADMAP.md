@@ -1,4 +1,5 @@
 # Development Roadmap & Sprint Plan
+
 ## College Unified Magazine Portal — v1.0
 
 | Field               | Detail                        |
@@ -12,6 +13,7 @@
 ## Phase 1 — Foundation (Week 1–2)
 
 ### Goals
+
 - Repository scaffolded
 - All documentation complete
 - Backend scanner and API working
@@ -41,6 +43,7 @@
 ## Phase 2 — Public Portal UI (Week 3–4)
 
 ### Goals
+
 - Landing page fully functional
 - Edition cards, filters, and iframe reader working
 - Responsive on all devices
@@ -72,6 +75,7 @@
 ## Phase 3 — Admin Dashboard (Week 5)
 
 ### Goals
+
 - Admin login and session management working
 - Dashboard shows all editions with publish controls
 - Metadata edit form functional
@@ -102,6 +106,7 @@
 ## Phase 4 — Security Hardening (Week 6)
 
 ### Goals
+
 - All security requirements from SECURITY.md implemented
 - Pre-launch security checklist 100% complete
 
@@ -130,6 +135,7 @@
 ## Phase 5 — Testing & Launch (Week 7)
 
 ### Goals
+
 - All unit and integration tests pass
 - Performance meets thresholds
 - Production deployed
