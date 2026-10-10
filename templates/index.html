@@ -1,0 +1,413 @@
+{% extends "base.html" %}
+
+{% block title %}Publications Portal | RKM Vidyamandira{% endblock %}
+
+{% block content %}
+<!-- Bento Hero Section (Inspired by Ref 1, 3 & 4) -->
+<section class="bento-hero-section" id="hero">
+  <div class="bento-hero-grid">
+
+    <!-- Main Spotlight Showcase Card (Left ~64%) -->
+    <div class="spotlight-hero-card">
+      <!-- 4K Background Slideshow -->
+      <div class="spotlight-slideshow" id="spotlightSlideshow">
+        {% for img_path in hero_images %}
+        <div class="spotlight-slide {% if loop.first %}active{% endif %}" data-bg="{{ url_for('static', filename=img_path) }}?v=3.1"></div>
+        {% endfor %}
+        <div class="spotlight-overlay"></div>
+      </div>
+
+      <!-- Spotlight Content -->
+      <div class="spotlight-content">
+        <div class="spotlight-top-meta">
+          <div class="spotlight-live-badge">
+            <span class="live-dot"></span>
+            <span>FEATURED EDITION • 2025–2026</span>
+          </div>
+          <div class="spotlight-stat-pills">
+            <span class="meta-pill"><i class="fa-solid fa-graduation-cap"></i> Autonomous</span>
+            <span class="meta-pill"><i class="fa-solid fa-language"></i> Bengali &amp; English</span>
+            <span class="meta-pill"><i class="fa-solid fa-landmark"></i> Estd. 1941</span>
+          </div>
+        </div>
+
+        <div class="spotlight-main-copy">
+          <span class="spotlight-eyebrow">ANNUAL FLAGSHIP VOLUME</span>
+          <h1 class="spotlight-title">Vidyamandira Patrika</h1>
+          <p class="spotlight-lead">
+            The premier annual literary, philosophical, and scientific journal of Ramakrishna Mission Vidyamandira, embodying the ideals of character-building, student creative scholarship, and institutional history.
+          </p>
+        </div>
+
+        <div class="spotlight-bottom-bar">
+          <div class="spotlight-actions">
+            <button type="button" class="btn btn-primary-spotlight" onclick="openComingSoonModal({ title: 'Vidyamandira Patrika (2025–26)', department: 'College Editorial Board', category: 'Annual', year: '2025–2026', desc: 'The flagship annual publication of Ramakrishna Mission Vidyamandira featuring scholarly essays, student creative writing, and institutional retrospectives.' })">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Read Publication</span>
+            </button>
+            <a href="#publications" onclick="scrollToPublications(event)" class="btn btn-glass-spotlight">
+              <i class="fa-solid fa-compass"></i>
+              <span>Browse Catalog</span>
+            </a>
+          </div>
+
+          <!-- Slideshow Navigation Controls (Ref 1 inspired) -->
+          <div class="spotlight-media-controls">
+            <button type="button" class="media-ctrl-btn" id="slidePrevBtn" aria-label="Previous slide" title="Previous campus view">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <div class="slideshow-indicators" id="slideDots">
+              {% for img_path in hero_images %}
+              <button type="button" class="dot {% if loop.first %}active{% endif %}" data-slide="{{ loop.index0 }}" onclick="goToSlide(Number(this.getAttribute('data-slide')))" aria-label="Slide {{ loop.index }}"></button>
+              {% endfor %}
+            </div>
+            <button type="button" class="media-ctrl-btn" id="slideNextBtn" aria-label="Next slide" title="Next campus view">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            <span class="slide-counter-badge" id="slideCounter">01 / {{ "%02d"|format(hero_images|length) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Bento Column (~36%): Highlights & Heritage -->
+    <div class="bento-hero-sidebar">
+      <!-- Suggested / Departmental Highlights Card (Ref 1 & 4 inspired) -->
+      <div class="suggested-editions-card">
+        <div class="sidebar-card-header">
+          <div>
+            <h2 class="sidebar-heading">Department Highlights</h2>
+            <p class="sidebar-subheading">Recent student publications</p>
+          </div>
+          <a href="#publications" onclick="filterByCategory('Departmental')" class="sidebar-header-link">View all</a>
+        </div>
+
+        <div class="suggested-items-list">
+          <!-- Item 1: CSE Aura -->
+          <button type="button" class="suggested-item-row" onclick="openComingSoonModal({ title: 'CSE Aura', department: 'Department of Computer Science & Electronics', category: 'Departmental', year: '2025–2026', desc: 'Advancements in Artificial Intelligence, distributed computing, algorithms, and student technical research.' })">
+            <span class="item-index-badge">01</span>
+            <span class="item-info">
+              <span class="item-title">CSE Aura</span>
+              <span class="item-desc">Dept. of Computer Science &amp; Electronics • Computing &amp; AI</span>
+              <span class="item-meta">
+                <span class="item-badge dept-badge">Departmental</span>
+                <span class="item-readers">2025–2026</span>
+              </span>
+            </span>
+            <span class="item-arrow">
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </button>
+
+          <!-- Item 2: Physics Spectrum -->
+          <button type="button" class="suggested-item-row" onclick="openComingSoonModal({ title: 'Physics Spectrum', department: 'Department of Physics', category: 'Departmental', year: '2025–2026', desc: 'Exploring quantum mechanics, classical electrodynamics, astrophysics, and laboratory monographs.' })">
+            <span class="item-index-badge">02</span>
+            <span class="item-info">
+              <span class="item-title">Physics Spectrum</span>
+              <span class="item-desc">Dept. of Physics • Quantum &amp; Optics</span>
+              <span class="item-meta">
+                <span class="item-badge dept-badge">Departmental</span>
+                <span class="item-readers">2025–2026</span>
+              </span>
+            </span>
+            <span class="item-arrow">
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </button>
+
+          <!-- Item 3: Shree Bhavan Patrika -->
+          <button type="button" class="suggested-item-row" onclick="openComingSoonModal({ title: 'Shree Bhavan Patrika', department: 'Shree Bhavan', category: 'Hostel', year: '2025–2026', desc: 'Annual hostel gazette celebrating fraternal brotherhood, evening prayer chanting, and resident creative writing.' })">
+            <span class="item-index-badge">03</span>
+            <span class="item-info">
+              <span class="item-title">Shree Bhavan Patrika</span>
+              <span class="item-desc">Hostel Bhavan • Poetry &amp; Campus Chronicles</span>
+              <span class="item-meta">
+                <span class="item-badge hostel-badge">Hostel Bhavan</span>
+                <span class="item-readers">2025–2026</span>
+              </span>
+            </span>
+            <span class="item-arrow">
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Collegiate Philosophy / Quote Card (Ref 1 bottom peach card & Ref 3 Telos) -->
+      <div class="heritage-quote-card">
+        <div class="quote-card-top">
+          <span class="quote-tag"><i class="fa-solid fa-feather"></i> Institutional Ethos</span>
+          <span class="quote-session">ESTD 1941</span>
+        </div>
+        <h3 class="quote-text">
+          "Education is the manifestation of the perfection already in man."
+        </h3>
+        <p class="quote-author-line">
+          — Swami Vivekananda, Belur Math
+        </p>
+        <a href="#about-section" class="quote-action-btn">
+          <span>Council &amp; Heritage</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Institutional Stats Bento Strip (Ref 2 & 4 inspired) -->
+<section class="metrics-strip-section">
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-copy">
+        <div class="metric-val">Grade A++</div>
+        <div class="metric-sub">NAAC CGPA 3.58 • Autonomous</div>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-copy">
+        <div class="metric-val">20 Publications</div>
+        <div class="metric-sub">Annual, 14 Depts &amp; 5 Bhavans</div>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-copy">
+        <div class="metric-val">100% Residential</div>
+        <div class="metric-sub">Gurukula Campus Tradition</div>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-copy">
+        <div class="metric-val">85+ Years</div>
+        <div class="metric-sub">Established 1941 • Belur Math</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Curated Categories Bento Section (Ref 2 Elevate Pastel Bento Cards) -->
+<section class="categories-bento-section">
+  <div class="section-title-wrap">
+    <span class="section-kicker">CURATED COLLECTIONS</span>
+    <h2 class="section-main-heading">Publication Categories</h2>
+  </div>
+
+  <div class="categories-bento-grid">
+    <!-- Card 1: Warm Honey - Annual Magazines -->
+    <a href="{{ url_for('annual') }}" class="category-bento-card bento-annual">
+      <div class="cat-card-header">
+        <span class="cat-session-pill">Annual Patrika</span>
+        <span class="cat-count">Flagship</span>
+      </div>
+      <h3 class="cat-card-title">College Annual Magazines</h3>
+      <p class="cat-card-desc">The flagship annual volumes featuring scholarly dissertations, campus retrospectives, and creative works from all departments.</p>
+      <div class="cat-card-footer">
+        <span class="cat-cta">Explore Annual Editions <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <!-- Card 2: Soft Lavender - Departmental Journals -->
+    <a href="{{ url_for('departments') }}" class="category-bento-card bento-dept">
+      <div class="cat-card-header">
+        <span class="cat-session-pill">14 Departments</span>
+        <span class="cat-count">Academic</span>
+      </div>
+      <h3 class="cat-card-title">Departmental Academic Journals</h3>
+      <p class="cat-card-desc">Peer-reviewed student research publications spanning Computer Science, Physics, Chemistry, Mathematics, and Humanities.</p>
+      <div class="cat-card-footer">
+        <span class="cat-cta">Explore Department Journals <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <!-- Card 3: Fresh Mint - Hostel Bhavan Gazettes -->
+    <a href="{{ url_for('bhavans') }}" class="category-bento-card bento-hostel">
+      <div class="cat-card-header">
+        <span class="cat-session-pill">5 Residential Halls</span>
+        <span class="cat-count">Creative</span>
+      </div>
+      <h3 class="cat-card-title">Hostel Bhavan Gazettes</h3>
+      <p class="cat-card-desc">Literary chronicles, student poetry, hostel memoirs, and festival editions published across all 5 residential halls.</p>
+      <div class="cat-card-footer">
+        <span class="cat-cta">Explore 5 Bhavans <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <!-- Card 4: Sky Blue - Heritage Archives -->
+    <a href="#publications" onclick="resetAllFilters(); scrollToPublications(event);" class="category-bento-card bento-archive">
+      <div class="cat-card-header">
+        <span class="cat-session-pill">1941 – Present</span>
+        <span class="cat-count">Historical</span>
+      </div>
+      <h3 class="cat-card-title">Heritage Archives &amp; Specials</h3>
+      <p class="cat-card-desc">Digitized commemorative volumes, jubilee souvenirs, and historical papers preserving Vidyamandira's cultural legacy.</p>
+      <div class="cat-card-footer">
+        <span class="cat-cta">Browse Entire Archives <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Publications Catalog & Discovery Grid Section -->
+<section class="catalog-section" id="publications">
+  <div class="catalog-container">
+    <!-- Section Header with Filter Controls (Ref 2 & 4 inspired) -->
+    <div class="catalog-header-bar">
+      <div class="catalog-title-group">
+        <span class="section-kicker">ARCHIVES &amp; DISCOVERY</span>
+        <h2 class="catalog-title">Explore Publications</h2>
+      </div>
+
+      <!-- Controls: Category Pills & Session Selector -->
+      <div class="catalog-controls-group">
+        <div class="category-pills-row" id="categoryTabs">
+          <button type="button" class="cat-filter-btn active" data-category="Hostel">Hostel Bhavans</button>
+          <button type="button" class="cat-filter-btn" data-category="Departmental">Departmental</button>
+          <button type="button" class="cat-filter-btn" data-category="Annual">Annual Patrika</button>
+        </div>
+
+        <div class="session-dropdown-wrapper">
+          <i class="fa-regular fa-calendar select-icon"></i>
+          <select id="yearSelect" class="session-select" aria-label="Filter by Academic Session">
+            {% for yr in years %}
+            <option value="{{ yr }}" {% if loop.first %}selected{% endif %}>{{ yr }}</option>
+            {% endfor %}
+            <option value="ALL">All Academic Sessions</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search & Results Status Toolbar -->
+    <div class="search-status-toolbar">
+      <div class="catalog-search-box">
+        <i class="fa-solid fa-magnifying-glass search-box-icon"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Filter by title, department, topic, or keyword..."
+          autocomplete="off"
+          aria-label="Filter publications"
+        >
+        <button type="button" id="clearSearch" class="btn-clear-search hidden" title="Clear search" aria-label="Clear search">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="filter-count-wrap">
+        <span class="count-text">
+          Showing <strong id="matchCount">{{ magazines|length }}</strong> publication(s)
+        </span>
+        <button type="button" id="resetFiltersBtn" class="btn-reset-filters hidden">
+          <i class="fa-solid fa-rotate-left"></i> Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Magazine Publications Bento Grid -->
+    <div class="publications-grid" id="magazinesGrid">
+      {% for mag in magazines %}
+      <article
+        class="publication-bento-card pub-card-{{ mag.category|lower }} {% if mag.has_reader %}card-is-live{% endif %}"
+        data-pub-title="{{ mag.title }}"
+        data-pub-dept="{{ mag.department }}"
+        data-pub-category="{{ mag.category }}"
+        data-pub-year="{{ mag.academic_year }}"
+        data-pub-desc="{{ mag.description }}"
+        data-title="{{ mag.title|lower }}"
+        data-department="{{ mag.department|lower }}"
+        data-category="{{ mag.category }}"
+        data-year="{{ mag.academic_year }}"
+        data-tags="{{ mag.tags|join(' ')|lower }}"
+        data-has-reader="{{ 'true' if mag.has_reader else 'false' }}"
+        data-read-url="{{ mag.read_url }}"
+        onclick="handlePublicationCardClick(this)"
+      >
+        <!-- Card Cover Header -->
+        <div class="pub-card-cover-wrap">
+          {% if mag.cover_url %}
+          <img src="{{ mag.cover_url }}" alt="{{ mag.title }} Cover" class="pub-cover-image" decoding="async">
+          {% else %}
+          <div class="pub-cover-fallback">
+            <div class="fallback-seal-frame">
+              <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Emblem" class="fallback-crest-img">
+            </div>
+            <div class="fallback-copy">
+              <span class="fallback-pretitle">{{ mag.department }}</span>
+              <span class="fallback-title">{{ mag.title }}</span>
+              <span class="fallback-status-tag">In Compilation</span>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="pub-cover-badges">
+            <span class="pub-category-chip cat-chip-{{ mag.category|lower }}">{{ mag.category }}</span>
+            <span class="pub-session-chip">{{ mag.academic_year }}</span>
+            {% if mag.has_reader %}
+            <span class="pub-live-indicator"><i class="fa-solid fa-circle-check"></i> Live</span>
+            {% endif %}
+          </div>
+
+        </div>
+
+        <!-- Card Content Body -->
+        <div class="pub-card-body">
+          <div class="pub-dept-line">
+            <span class="dept-dot"></span>
+            <span>{{ mag.department }}</span>
+          </div>
+
+          <h3 class="pub-card-title">{{ mag.title }}</h3>
+          <p class="pub-card-desc">{{ mag.description }}</p>
+
+          <!-- Tag Chips -->
+          {% if mag.tags %}
+          <div class="pub-tags-list">
+            {% for tag in mag.tags %}
+            <span class="pub-tag-chip">#{{ tag }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Card Actions Footer -->
+        <div class="pub-card-footer">
+          {% if mag.has_reader %}
+          <a href="{{ mag.read_url }}" class="btn-read-pub btn-read-live" onclick="event.stopPropagation();">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Read Publication</span>
+          </a>
+          <a href="{{ mag.entrypoint }}" target="_blank" class="btn-external-pub" onclick="event.stopPropagation();" title="Open Fullscreen Reader" aria-label="Open Fullscreen Reader">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          {% else %}
+          <button type="button" class="btn-read-pub" onclick="event.stopPropagation(); openComingSoonModal(this.closest('.publication-bento-card'))">
+            <i class="fa-solid fa-clock"></i>
+            <span>In Compilation</span>
+          </button>
+          <button type="button" class="btn-external-pub" onclick="event.stopPropagation(); openComingSoonModal(this.closest('.publication-bento-card'))" title="Volume currently in compilation" aria-label="Volume in compilation">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <!-- Empty Search State -->
+    <div class="catalog-empty-state hidden" id="emptyState">
+      <div class="empty-icon-wrap">
+        <i class="fa-solid fa-book-open"></i>
+      </div>
+      <h3 class="empty-heading">No Publications Found</h3>
+      <p class="empty-desc">We couldn't find any publications matching your current filter criteria or search keyword.</p>
+      <button type="button" class="btn-empty-reset" onclick="resetAllFilters()">
+        <i class="fa-solid fa-rotate-left"></i> Reset All Filters
+      </button>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
