@@ -1,4 +1,5 @@
 # Security & Authentication Design
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -24,6 +25,7 @@ The portal has two distinct security surfaces:
 ## 2. Authentication Design
 
 ### 2.1 Authentication Method
+
 The portal uses **session-based authentication** (server-side sessions via Flask). There is no token-based (JWT) auth in v1.0, keeping the implementation simple and stateful.
 
 ### 2.2 Password Policy
@@ -132,12 +134,14 @@ def super_admin_required(f):
 All state-changing requests (POST, PATCH, DELETE) MUST include a CSRF token.
 
 ### 4.1 Implementation
+
 - Use `Flask-WTF` (`flask_wtf.csrf.CSRFProtect`).
 - CSRF token is embedded in every admin form as a hidden field.
 - For AJAX/Fetch requests, the token is sent in the `X-CSRFToken` header.
 - Token is validated server-side before processing the request.
 
 ### 4.2 Frontend Pattern (JavaScript)
+
 ```javascript
 // Read CSRF token from meta tag
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
@@ -153,6 +157,7 @@ fetch('/api/admin/editions/cs-2026', {
 ```
 
 ### 4.3 Backend Pattern (Flask)
+
 ```html
 <!-- In base admin template -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -173,6 +178,7 @@ Use `Flask-Limiter` to protect sensitive endpoints.
 | All admin API       | 100 requests / min / IP | HTTP 429                        |
 
 ### 5.2 Configuration
+
 ```python
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -225,6 +231,7 @@ Content-Security-Policy:
 > **Note:** `frame-src 'self'` allows the portal to embed its own `/static/magazines/` content in the `<iframe>`. Sub-team content must not load external scripts that would violate this CSP.
 
 ### 6.3 Flask Implementation
+
 ```python
 @app.after_request
 def set_security_headers(response):
@@ -319,15 +326,18 @@ All file reads performed by the scanner MUST pass through `is_safe_path()`. Any 
 ## 9. Input Validation & Sanitization
 
 ### 9.1 meta.json Validation
+
 - All fields validated against the canonical JSON schema on every scan.
 - Reject editions with missing required fields or wrong data types.
 - Log the error with the offending file path.
 
 ### 9.2 Admin Form Input
+
 - All text inputs sanitized using `markupsafe.escape()` before being written to `meta.json`.
 - Maximum field lengths enforced both client-side (HTML `maxlength`) and server-side.
 
 ### 9.3 URL Parameters
+
 - `year` parameter must be a valid 4-digit integer (2000–2100).
 - `category` must be one of the allowed enum values.
 - Any other unexpected parameter is ignored.
