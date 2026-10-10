@@ -133,14 +133,49 @@ def main():
         print("""
 Usage:
   python tools/validate_edition.py <path_to_directory_or_zip>
+  python tools/validate_edition.py --all
 
-Example:
+Examples:
   python tools/validate_edition.py magazines/starter-kit-template
   python tools/validate_edition.py my_submission.zip
+  python tools/validate_edition.py --all
 """)
         sys.exit(1)
 
     target = sys.argv[1]
+
+    if target == '--all':
+        magazines_dir = 'magazines'
+        if not os.path.exists(magazines_dir):
+            print(f"[ERROR] Directory '{magazines_dir}' not found.")
+            sys.exit(1)
+
+        failed = 0
+        total = 0
+        # Check starter kit template
+        starter_kit = os.path.join(magazines_dir, 'starter-kit-template')
+        if os.path.isdir(starter_kit):
+            total += 1
+            if not validate_target(starter_kit):
+                failed += 1
+
+        # Check year/edition directories
+        for year in sorted(os.listdir(magazines_dir)):
+            year_path = os.path.join(magazines_dir, year)
+            if not os.path.isdir(year_path) or year == 'starter-kit-template':
+                continue
+            for slug in sorted(os.listdir(year_path)):
+                slug_path = os.path.join(year_path, slug)
+                if os.path.isdir(slug_path):
+                    # Validate all interactive editions that contain index.html
+                    if os.path.exists(os.path.join(slug_path, 'index.html')):
+                        total += 1
+                        if not validate_target(slug_path):
+                            failed += 1
+
+        print(f"\n[SUMMARY] Validated {total} interactive editions: {total - failed} passed, {failed} failed.")
+        sys.exit(1 if failed > 0 else 0)
+
     success = validate_target(target)
     sys.exit(0 if success else 1)
 

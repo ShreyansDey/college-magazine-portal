@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: college-magazine-portal
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=${SECRET_KEY:-change-this-secret-key-in-production}
+      - MAGAZINES_DIR=magazines
+      - ADMINS_FILE=data/admins.json
+      - MAX_CONTENT_LENGTH=104857600
+    volumes:
+      # Persistent magazines directory for uploads
+      - ./magazines:/app/magazines
+      # Persistent admins directory
+      - ./data:/app/data
