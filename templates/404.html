@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Page Not Found | RKM Vidyamandira Publications{% endblock %}
+
+{% block content %}
+<section class="editorial-404-container">
+  <div class="editorial-404-card">
+
+    <!-- Background Monumental Watermark -->
+    <div class="watermark-404" aria-hidden="true">404</div>
+
+    <!-- College Crest Seal -->
+    <div class="error-seal-wrap">
+      <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKM Vidyamandira Crest" class="error-seal-img">
+    </div>
+
+    <!-- Status Pill -->
+    <div class="error-status-pill">
+      <span class="status-pulse-dot"></span>
+      <span>404 • ARCHIVAL EXCEPTION</span>
+    </div>
+
+    <!-- Main Editorial Headline -->
+    <h1 class="error-headline">
+      The Page or Edition You Seek <br>
+      <em class="error-serif-italic">Lies Beyond Our Catalog</em>
+    </h1>
+
+    <p class="error-lead">
+      The collegiate monograph, hostel gazette, or department article you requested does not exist, has been re-indexed into institutional archives, or is currently in compilation for the upcoming session.
+    </p>
+
+    <!-- Quick Search Fallback Bar -->
+    <form class="error-search-form" action="/" method="get" onsubmit="handleErrorSearch(event)">
+      <div class="error-search-bar">
+        <i class="fa-solid fa-magnifying-glass search-bar-icon"></i>
+        <input
+          type="text"
+          id="errorSearchInput"
+          placeholder="Search by department, hostel, or journal (e.g. Physics, Vivek Bhavan, Aura)..."
+          aria-label="Search publications"
+        >
+        <button type="submit" class="btn-error-search">
+          <span>Search</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </form>
+
+    <!-- Navigation Action Pathways -->
+    <div class="error-actions-group">
+      <a href="{{ url_for('home') }}" class="btn-error-primary">
+        <i class="fa-solid fa-house"></i>
+        <span>Return to Showcase</span>
+      </a>
+      <a href="{{ url_for('home') }}#publications" class="btn-error-secondary">
+        <i class="fa-solid fa-compass"></i>
+        <span>Browse All 20 Publications</span>
+      </a>
+    </div>
+
+    <!-- Quick Discovery Links Chips -->
+    <div class="error-discovery-links">
+      <span class="discovery-label">Explore Catalog Sections:</span>
+      <div class="discovery-chips-row">
+        <a href="{{ url_for('annual') }}" class="discovery-chip annual-chip">
+          <span>Annual Patrika</span>
+        </a>
+        <a href="{{ url_for('departments') }}" class="discovery-chip dept-chip">
+          <span>14 Academic Departments</span>
+        </a>
+        <a href="{{ url_for('bhavans') }}" class="discovery-chip bhavan-chip">
+          <span>5 Residential Bhavans</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function handleErrorSearch(e) {
+  e.preventDefault();
+  const query = document.getElementById('errorSearchInput').value.trim();
+  if (query) {
+    window.location.href = "{{ url_for('home') }}?search=" + encodeURIComponent(query) + "#publications";
+  } else {
+    window.location.href = "{{ url_for('home') }}#publications";
+  }
+}
+</script>
+{% endblock %}
