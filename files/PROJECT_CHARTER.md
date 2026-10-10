@@ -1,4 +1,5 @@
 # Project Charter
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                          |
@@ -33,6 +34,7 @@ Student publications at our college — Annual Magazines, Departmental Journals,
 ## 3. Scope
 
 ### In Scope (v1.0)
+
 - Flask-based portal backend with auto-scanner
 - Public landing page with edition discovery
 - Iframe-based magazine reader
@@ -44,6 +46,7 @@ Student publications at our college — Annual Magazines, Departmental Journals,
 - Documentation suite (SRS, PRD, API Design, Architecture, etc.)
 
 ### Out of Scope (v1.0)
+
 - In-app file upload (all submissions via Git PR)
 - Multi-language support
 - Visitor accounts or ratings
