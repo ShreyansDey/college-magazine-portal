@@ -1,4 +1,5 @@
 # Risk Register
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -19,6 +20,7 @@
 | **Low (1)**         | Low (1)    | Low (2)   | Medium (3)|
 
 **Score = Likelihood × Impact**
+
 - 1–2: Low | 3–4: Medium | 6: High | 9: Critical
 
 ---
@@ -72,7 +74,7 @@
 ## Summary Dashboard
 
 | Severity | Count | Risk IDs |
-|----------|-------|----------|
+| ---------- | ------- | ---------- |
 | Critical (9) | 0 | — |
 | High (6) | 8 | R-T-01, R-T-02, R-T-03, R-T-08, R-S-02, R-S-05, R-S-08, R-P-01, R-P-02 |
 | Medium (3–4) | 8 | R-T-04, R-T-07, R-S-01, R-S-03, R-S-04, R-S-06, R-S-07, R-P-03, R-P-04, R-P-05, R-P-06 |
