@@ -1,0 +1,358 @@
+{% extends "base.html" %}
+
+{% block title %}Metadata Specifications &amp; Schema | RKM Vidyamandira{% endblock %}
+
+{% block content %}
+<div class="chronicle-page-wrapper tech-specs-theme">
+
+  <!-- Ambient Glow Canvas -->
+  <div class="ambient-glow-mesh"></div>
+
+  <!-- Hero Header -->
+  <header class="chronicle-hero">
+    <div class="chronicle-badge">
+      <span class="badge-dot"></span>
+      <span>SYSTEM SPECIFICATION • SCHEMA v1.0</span>
+    </div>
+
+    <h1 class="chronicle-hero-title">
+      The <span class="gradient-text-accent">Metadata Schema</span> Specifications
+    </h1>
+
+    <p class="chronicle-hero-subtitle">
+      Canonical JSON schema, directory structure hierarchies, micro-frontend constraints,
+      and packaging rules governing all student and departmental publications.
+    </p>
+
+    <!-- Key Metrics Stats Row -->
+    <div class="chronicle-stats-grid">
+      <div class="chronicle-stat-card">
+        <span class="stat-number">v1.0</span>
+        <span class="stat-label">JSON Schema Release</span>
+      </div>
+      <div class="chronicle-stat-card">
+        <span class="stat-number">4:3</span>
+        <span class="stat-label">Cover Aspect Ratio</span>
+      </div>
+      <div class="chronicle-stat-card">
+        <span class="stat-number">Zip-Slip</span>
+        <span class="stat-label">Path-Traversal Guarded</span>
+      </div>
+      <div class="chronicle-stat-card">
+        <span class="stat-number">0-DB</span>
+        <span class="stat-label">Filesystem Architecture</span>
+      </div>
+    </div>
+
+    <div class="hero-action-buttons">
+      <a href="{{ url_for('download_starter_kit') }}" class="btn-cta-primary">
+        <i class="fa-solid fa-file-zipper"></i> Download Starter Kit (.zip)
+      </a>
+      <a href="#schema-code-section" class="btn-cta-secondary">
+        <i class="fa-solid fa-code"></i> Inspect JSON Schema
+      </a>
+    </div>
+  </header>
+
+  <!-- Section 1: Directory Tree Visualizer -->
+  <section class="chronicle-section">
+    <div class="section-header-centered">
+      <span class="section-tag-pill">FILESYSTEM HIERARCHY</span>
+      <h2 class="section-headline">Edition Directory Architecture</h2>
+      <p class="section-subheadline">
+        Every magazine is an autonomous static package placed inside the college repository under
+        <code class="inline-code">magazines/&lt;academic_year&gt;/&lt;slug&gt;/</code>.
+      </p>
+    </div>
+
+    <div class="directory-tree-card">
+      <div class="directory-card-topbar">
+        <div class="window-controls">
+          <span class="window-dot red"></span>
+          <span class="window-dot yellow"></span>
+          <span class="window-dot green"></span>
+        </div>
+        <span class="directory-card-title">magazines/2025-2026/cse-aura/</span>
+        <span class="directory-badge">AUTONOMOUS PACKAGE</span>
+      </div>
+
+      <div class="directory-tree-content">
+        <div class="tree-line root-dir">
+          <i class="fa-solid fa-folder-open folder-icon"></i>
+          <strong>cse-aura/</strong>
+          <span class="tree-comment">// Unique URL slug for the magazine edition</span>
+        </div>
+
+        <div class="tree-line file-level-1 highlight-file">
+          <span class="tree-indent">├─</span>
+          <i class="fa-solid fa-file-code file-icon json"></i>
+          <span class="file-name">meta.json</span>
+          <span class="file-badge required">REQUIRED</span>
+          <span class="tree-comment">// Canonical manifest describing metadata, title, and category</span>
+        </div>
+
+        <div class="tree-line file-level-1 highlight-file">
+          <span class="tree-indent">├─</span>
+          <i class="fa-solid fa-file-lines file-icon html"></i>
+          <span class="file-name">index.html</span>
+          <span class="file-badge required">REQUIRED</span>
+          <span class="tree-comment">// Micro-frontend entrypoint loaded inside the distraction-free reader</span>
+        </div>
+
+        <div class="tree-line file-level-1 highlight-file">
+          <span class="tree-indent">├─</span>
+          <i class="fa-solid fa-file-image file-icon img"></i>
+          <span class="file-name">cover.jpg</span>
+          <span class="file-badge required">REQUIRED</span>
+          <span class="tree-comment">// 4:3 high-resolution cover thumbnail displayed on showcase cards</span>
+        </div>
+
+        <div class="tree-line folder-level-1">
+          <span class="tree-indent">├─</span>
+          <i class="fa-solid fa-folder folder-icon"></i>
+          <span class="file-name">css/</span>
+        </div>
+
+        <div class="tree-line file-level-2">
+          <span class="tree-indent">│  └─</span>
+          <i class="fa-solid fa-file-code file-icon css"></i>
+          <span class="file-name">style.css</span>
+          <span class="tree-comment">// Scoped CSS styling custom to this departmental volume</span>
+        </div>
+
+        <div class="tree-line folder-level-1">
+          <span class="tree-indent">└─</span>
+          <i class="fa-solid fa-folder folder-icon"></i>
+          <span class="file-name">assets/</span>
+        </div>
+
+        <div class="tree-line file-level-2">
+          <span class="tree-indent">   ├─</span>
+          <i class="fa-solid fa-file-image file-icon img"></i>
+          <span class="file-name">editorial-team.jpg</span>
+        </div>
+
+        <div class="tree-line file-level-2">
+          <span class="tree-indent">   └─</span>
+          <i class="fa-solid fa-file-image file-icon img"></i>
+          <span class="file-name">illustrations/</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Canonical meta.json Schema Viewer -->
+  <section class="chronicle-section" id="schema-code-section">
+    <div class="section-header-centered">
+      <span class="section-tag-pill">CANONICAL MANIFEST</span>
+      <h2 class="section-headline">meta.json Specification</h2>
+      <p class="section-subheadline">
+        The scanner parses this JSON file to automatically register titles, filters, and cover graphics into the portal catalog.
+      </p>
+    </div>
+
+    <div class="schema-code-card">
+      <div class="code-card-header">
+        <div class="code-header-left">
+          <i class="fa-solid fa-file-code"></i>
+          <span>canonical-meta-schema.json</span>
+        </div>
+        <button type="button" class="btn-copy-code" onclick="copySchemaJson()" id="copyCodeBtn">
+          <i class="fa-regular fa-copy"></i>
+          <span id="copyBtnText">Copy JSON</span>
+        </button>
+      </div>
+
+      <pre class="schema-code-block"><code id="schemaCodeText">{
+  "id": "cse-aura-2026",
+  "title": "AURA 2026 — Departmental Journal",
+  "year": "2025-2026",
+  "category": "departmental",
+  "sub_id": "cse",
+  "description": "Annual academic journal of the Department of Computer Science &amp; Electronics showcasing student research, computational algorithms, and creative tech narratives.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "Computer Science",
+    "Electronics",
+    "Artificial Intelligence",
+    "Student Research",
+    "Vidyamandira"
+  ],
+  "published": true,
+  "published_date": "2026-02-15",
+  "author_team": "CSE Editorial Board 2025–2026"
+}</code></pre>
+    </div>
+
+    <!-- Field Descriptions Table -->
+    <div class="schema-fields-table-wrapper">
+      <table class="schema-fields-table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Type</th>
+            <th>Requirement</th>
+            <th>Permitted Values / Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="param-code">id</code></td>
+            <td><span class="type-pill">string</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>Unique hyphenated alphanumeric slug (e.g. <code>"cse-aura-2026"</code>).</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">title</code></td>
+            <td><span class="type-pill">string</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>Formal publication title as shown in catalogs (max 120 chars).</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">year</code></td>
+            <td><span class="type-pill">string</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>Academic session string format: <code>"YYYY-YYYY"</code> (e.g. <code>"2025-2026"</code>).</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">category</code></td>
+            <td><span class="type-pill">enum</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>Strictly one of: <code>"annual"</code>, <code>"departmental"</code>, or <code>"bhavan"</code>.</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">sub_id</code></td>
+            <td><span class="type-pill">string | null</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>Department or Bhavan code (e.g. <code>"cse"</code>, <code>"physics"</code>, <code>"vivek-bhavan"</code>). Use <code>null</code> for Annual Patrika.</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">description</code></td>
+            <td><span class="type-pill">string</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>Concise editorial summary describing the volume's theme and highlights.</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">cover_image</code></td>
+            <td><span class="type-pill">string</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>Relative file name of the cover graphic (standard: <code>"cover.jpg"</code>).</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">tags</code></td>
+            <td><span class="type-pill">array[string]</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>List of 3–8 search keywords enabling instant search filtering.</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">published</code></td>
+            <td><span class="type-pill">boolean</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td><code>true</code> to make public immediately, <code>false</code> to keep in pre-press review.</td>
+          </tr>
+          <tr>
+            <td><code class="param-code">author_team</code></td>
+            <td><span class="type-pill">string</span></td>
+            <td><span class="badge-mandatory">Mandatory</span></td>
+            <td>Official credits of the compiling student or departmental editorial body.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 3: Micro-Frontend Design & Security Constraints -->
+  <section class="chronicle-section">
+    <div class="section-header-centered">
+      <span class="section-tag-pill">ARCHITECTURAL CONSTRAINTS</span>
+      <h2 class="section-headline">Security &amp; Sandboxing Standards</h2>
+      <p class="section-subheadline">
+        Every magazine runs as an isolated micro-frontend inside the Unified Reader sandbox.
+      </p>
+    </div>
+
+    <div class="byte-cards-grid">
+      <div class="byte-card">
+        <div class="byte-card-icon-frame">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 class="byte-card-title">Sandboxed Iframe Execution</h3>
+        <p class="byte-card-desc">
+          Magazines are isolated from portal cookies and authentication credentials. Top-navigation escapes
+          and invasive script injections are blocked by strict Content-Security-Policy rules.
+        </p>
+      </div>
+
+      <div class="byte-card">
+        <div class="byte-card-icon-frame">
+          <i class="fa-solid fa-file-zipper"></i>
+        </div>
+        <h3 class="byte-card-title">Path Traversal (Zip-Slip) Guard</h3>
+        <p class="byte-card-desc">
+          When editorial ZIP packages are ingested by administrators, every file path is validated via
+          strict canonical resolution before disk writes, guaranteeing complete container integrity.
+        </p>
+      </div>
+
+      <div class="byte-card">
+        <div class="byte-card-icon-frame">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h3 class="byte-card-title">Autonomous Performance</h3>
+        <p class="byte-card-desc">
+          All styles and assets must be self-contained in the package directory. Heavy third-party JavaScript
+          bundles and external trackers are prohibited to preserve sub-second render speeds.
+        </p>
+      </div>
+
+      <div class="byte-card">
+        <div class="byte-card-icon-frame">
+          <i class="fa-solid fa-image"></i>
+        </div>
+        <h3 class="byte-card-title">4:3 Aspect Ratio Standard</h3>
+        <p class="byte-card-desc">
+          Cover graphics must adhere to a 4:3 portrait aspect ratio (recommended: 1200 x 900 px or 1600 x 1200 px)
+          at 85% JPEG compression to maintain high-DPI clarity without bloat.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Starter Kit CTA Card -->
+  <section class="chronicle-cta-wrap">
+    <div class="chronicle-cta-card">
+      <div class="cta-content">
+        <span class="cta-kicker">GET STARTED IN MINUTES</span>
+        <h2 class="cta-headline">Download the Official Editorial Starter Kit</h2>
+        <p class="cta-body">
+          Contains pre-configured <code class="inline-code">meta.json</code>, clean <code class="inline-code">index.html</code>,
+          typography stylesheets, and a full editorial checklist for student development teams.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <a href="{{ url_for('download_starter_kit') }}" class="btn-cta-primary">
+          <i class="fa-solid fa-download"></i> Download Starter Kit (.zip)
+        </a>
+        <a href="{{ url_for('editorial_guidelines') }}" class="btn-cta-secondary">
+          <i class="fa-solid fa-book-open"></i> Read Editorial Guidelines
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+function copySchemaJson() {
+  const code = document.getElementById('schemaCodeText').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const btnText = document.getElementById('copyBtnText');
+    const original = btnText.innerText;
+    btnText.innerText = 'Copied!';
+    setTimeout(() => {
+      btnText.innerText = original;
+    }, 2000);
+  });
+}
+</script>
+{% endblock %}
