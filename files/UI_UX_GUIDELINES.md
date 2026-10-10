@@ -1,4 +1,5 @@
 # UI/UX Design Guidelines
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -71,6 +72,7 @@ font-family: 'JetBrains Mono', 'Courier New', monospace;
 ```
 
 Import from Google Fonts:
+
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
@@ -250,6 +252,7 @@ Use a base-8 spacing scale:
 ## 8. Admin Dashboard UI
 
 ### 8.1 Layout
+
 - Sidebar navigation (Edition List, Account Management, Settings)
 - Main content area (table of editions)
 - Status badges: `Published` (green), `Unpublished` (orange)
