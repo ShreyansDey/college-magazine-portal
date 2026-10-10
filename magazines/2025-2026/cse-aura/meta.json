@@ -1,0 +1,16 @@
+{
+  "title": "CSE Aura",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of Computer Science and Electronics",
+  "description": "Tech perspectives, open-source innovations, research paper summaries, and coding culture reflections from the Vidyamandira CS fraternity.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "tech",
+    "ai",
+    "algorithms",
+    "open-source"
+  ],
+  "featured": false,
+  "published_at": "2026-03-01"
+}
