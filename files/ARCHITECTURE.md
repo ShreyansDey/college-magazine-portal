@@ -1,4 +1,5 @@
 # System Architecture Document (SAD)
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -241,6 +242,7 @@ Returns 200 OK → Dashboard updates UI
 Every sub-team MUST comply with the following:
 
 ### 6.1 Directory Convention
+
 ```
 static/magazines/<YEAR>/<CATEGORY>/<SUB_ID>/
     ├── index.html          ← REQUIRED (Hard Collar entry point)
@@ -249,6 +251,7 @@ static/magazines/<YEAR>/<CATEGORY>/<SUB_ID>/
 ```
 
 ### 6.2 Path Variables
+
 | Variable    | Format             | Example         |
 |-------------|-------------------|-----------------|
 | `YEAR`      | 4-digit integer   | `2026`          |
@@ -256,8 +259,10 @@ static/magazines/<YEAR>/<CATEGORY>/<SUB_ID>/
 | `SUB_ID`    | lowercase, hyphens OK | `cs`, `bhavan1`, `physics` |
 
 ### 6.3 Asset Referencing
+
 All asset paths inside the plugin MUST be **relative**, not absolute:
-- ✅ `<img src="images/cover.jpg">` 
+
+- ✅ `<img src="images/cover.jpg">`
 - ❌ `<img src="/images/cover.jpg">`
 
 ---
@@ -319,19 +324,23 @@ Internet
 ## 10. Architecture Decision Records (ADR)
 
 ### ADR-001: No Database for Core Operation
+
 **Decision:** Use `meta.json` files instead of a relational database.
 **Rationale:** Simplifies setup (no DB install required), fits the Git PR workflow naturally, and is sufficient for the expected data volume (<500 editions in 10 years).
 **Trade-off:** Admin writes to disk (not atomic); acceptable at this scale.
 
 ### ADR-002: iframe for Edition Embedding
+
 **Decision:** Use `<iframe>` to embed sub-team editions.
 **Rationale:** Perfect isolation — sub-team code cannot affect the portal. Simple implementation. No build step needed.
 **Trade-off:** Some browser security restrictions (CORS, CSP) must be carefully configured.
 
 ### ADR-003: Flask over Django
+
 **Decision:** Use Flask instead of Django.
 **Rationale:** Lower overhead. The system doesn't need Django's ORM, admin, or auth modules — those are built custom. Flask is easier for student maintainers.
 
 ### ADR-004: Filesystem Scanner over Git API
+
 **Decision:** Scan the local filesystem, not query the GitHub API.
 **Rationale:** Works in offline/intranet environments. No API rate limits. Simpler code.
