@@ -1,4 +1,5 @@
 # Software Requirements Specification (SRS)
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -29,16 +30,20 @@
 ## 1. Introduction
 
 ### 1.1 Purpose
+
 This SRS describes the complete functional and non-functional requirements for the **College Unified Magazine Portal** — a centralized micro-frontend web platform that aggregates, organizes, and showcases all student publications across multiple academic years.
 
 ### 1.2 Scope
+
 The system covers:
+
 - A **Flask-based Core Portal** that auto-discovers and serves all magazine editions.
 - A **Micro-Frontend Plugin Architecture** allowing independent sub-teams to develop departmental, hostel, and annual magazines.
 - A **Universal Embedded Reader** using `<iframe>` for seamless in-browser reading.
 - Role-based access for **Visitors**, **Contributors**, and **Administrators**.
 
 ### 1.3 Intended Audience
+
 - Software Architects & Lead Developers
 - Sub-team developers (Departmental, Bhavan, Annual)
 - College administrators and faculty coordinators
@@ -63,6 +68,7 @@ The system covers:
 | HSTS         | HTTP Strict Transport Security                                              |
 
 ### 1.5 References
+
 - `PRD.md` — Product Requirements Document
 - `ARCHITECTURE.md` — System Architecture Design
 - `SECURITY.md` — Security & Authentication Design
@@ -74,6 +80,7 @@ The system covers:
 ## 2. Overall Description
 
 ### 2.1 Product Perspective
+
 The portal is a standalone internal web application deployed on a college server or cloud host. It acts as an aggregation hub — it does **not** create magazines itself, but discovers, indexes, and presents them through a unified interface.
 
 ### 2.2 Product Functions (Summary)
@@ -99,6 +106,7 @@ The portal is a standalone internal web application deployed on a college server
 | **Super-Admin**     | Root-level user who manages admin accounts and system configuration.        |
 
 ### 2.4 Operating Environment
+
 - **Server OS:** Linux (Ubuntu 22.04 LTS recommended) or Windows Server
 - **Python Version:** >= 3.10
 - **Web Framework:** Flask >= 3.0
@@ -106,12 +114,14 @@ The portal is a standalone internal web application deployed on a college server
 - **Deployment:** Local server / AWS EC2 / Railway / Render / any WSGI-compatible host
 
 ### 2.5 Design and Implementation Constraints
+
 - All magazine plugins MUST contain an `index.html` as their root entry (Hard Collar).
 - No relational database required; JSON metadata files act as the data layer.
 - The portal must function without internet access (all assets served locally).
 - Sub-team files must be under 50 MB per edition (uncompressed).
 
 ### 2.6 Assumptions and Dependencies
+
 - Sub-teams have basic HTML/CSS/JS knowledge.
 - A GitHub (or GitLab) repository is used as the central code repository.
 - The college provides a server with Python 3.10+ and pip access.
@@ -289,6 +299,7 @@ The portal is a standalone internal web application deployed on a college server
 ```
 
 ### 7.2 API Response Schema
+
 Full schema is defined in `API_DESIGN.md`.
 
 ---
@@ -296,33 +307,36 @@ Full schema is defined in `API_DESIGN.md`.
 ## 8. External Interface Requirements
 
 ### 8.1 User Interface
+
 - Web browser (no mobile app required in v1.0)
 - Responsive layout (min supported width: 320px)
 
 ### 8.2 Software Interfaces
+
 - Flask WSGI server
 - GitHub / GitLab for source code management and PR workflow
 - `python-dotenv` for environment variable management
 - `Werkzeug` security utilities for password hashing
 
 ### 8.3 Communication Interfaces
+
 - HTTP on port 5000 (development) / HTTPS on port 443 (production)
 
 ---
 
 ## 9. Constraints & Assumptions
 
-| # | Constraint / Assumption                                                                |
-|---|----------------------------------------------------------------------------------------|
-| C1 | Python 3.10+ must be pre-installed on the server.                                    |
+| # | Constraint / Assumption |
+| --- | ---------------------------------------------------------------------------------------- |
+| C1 | Python 3.10+ must be pre-installed on the server. |
 | C2 | Sub-team members must use standard HTML/CSS/JS (no server-side code inside plugins). |
-| C3 | All edition plugins must have `index.html` as the root entry file (Hard Collar).     |
-| C4 | Cover images must be placed inside the edition's own directory.                       |
-| C5 | The portal is an internal college tool; public internet exposure is optional.         |
-| C6 | Git PR review is the change-management mechanism; no in-app file upload in v1.0.     |
-| A1 | The college server supports Python and pip.                                           |
-| A2 | At least one person with server access is designated as the Super-Admin.             |
-| A3 | Sub-teams have access to the GitHub repository for PR submission.                    |
+| C3 | All edition plugins must have `index.html` as the root entry file (Hard Collar). |
+| C4 | Cover images must be placed inside the edition's own directory. |
+| C5 | The portal is an internal college tool; public internet exposure is optional. |
+| C6 | Git PR review is the change-management mechanism; no in-app file upload in v1.0. |
+| A1 | The college server supports Python and pip. |
+| A2 | At least one person with server access is designated as the Super-Admin. |
+| A3 | Sub-teams have access to the GitHub repository for PR submission. |
 
 ---
 
