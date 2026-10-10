@@ -1,0 +1,16 @@
+{
+  "title": "Ganit Manjusha",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of Mathematics",
+  "description": "Pure and applied mathematics, algebra, analysis, topology, and discrete mathematical modeling.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "mathematics",
+    "algebra",
+    "analysis",
+    "topology"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
