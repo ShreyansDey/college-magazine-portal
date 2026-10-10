@@ -1,4 +1,5 @@
 # Deployment Guide
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -26,12 +27,14 @@ Ensure the following are installed on the server before deploying:
 ## 2. Development Setup (Local)
 
 ### Step 1 — Clone the Repository
+
 ```bash
 git clone https://github.com/<org>/college-magazine-portal.git
 cd college-magazine-portal
 ```
 
 ### Step 2 — Create a Virtual Environment
+
 ```bash
 python3 -m venv venv
 source venv/bin/activate        # Linux / macOS
@@ -39,17 +42,20 @@ venv\Scripts\activate           # Windows
 ```
 
 ### Step 3 — Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### Step 4 — Configure Environment Variables
+
 ```bash
 cp .env.example .env
 # Edit .env and set a strong SECRET_KEY
 ```
 
 `.env` file:
+
 ```env
 SECRET_KEY=your-super-secret-random-key-here
 ADMIN_STORE_PATH=data/admins.json
@@ -58,12 +64,14 @@ FLASK_DEBUG=1
 ```
 
 ### Step 5 — Create the First Super-Admin Account
+
 ```bash
 python manage.py create-admin
 # Follow the prompts for username, password, and role
 ```
 
 ### Step 6 — Run the Development Server
+
 ```bash
 python app.py
 ```
