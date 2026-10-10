@@ -1,0 +1,16 @@
+{
+  "title": "Anwesha",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of Bengali",
+  "description": "Bengali literature, Rabindranath Tagore studies, poetry, cultural essays, and linguistics.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "bengali",
+    "literature",
+    "tagore",
+    "culture"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
