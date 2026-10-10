@@ -1,0 +1,61 @@
+================================================================================
+RAMAKRISHNA MISSION VIDYAMANDIRA — STUDENT MAGAZINE STARTER KIT
+================================================================================
+Designed so any student can create and publish a world-class magazine edition!
+The layout, fonts, and responsive structure are already 100% pre-built for you.
+You only need to insert your own articles, stories, poems, and photos.
+
+--------------------------------------------------------------------------------
+STEP 1: OPEN AND EDIT YOUR ARTICLES
+--------------------------------------------------------------------------------
+1. Right-click "index.html" -> Click "Open with" -> Choose "Notepad" (or VS Code).
+2. Press [Ctrl + F] to search for: ⭐⭐⭐
+3. Follow the friendly step-by-step comments from beginning to end:
+      ⭐⭐⭐ [STEP 1: CHANGE YOUR MAGAZINE TITLE & SESSION] ⭐⭐⭐
+      ⭐⭐⭐ [STEP 2: TOP EDITORIAL BAR] ⭐⭐⭐
+      ⭐⭐⭐ [STEP 3: MAIN TYPOGRAPHIC MASTHEAD] ⭐⭐⭐
+      ⭐⭐⭐ [STEP 4: HERO FEATURE STORY (LEAD ARTICLE)] ⭐⭐⭐
+      ⭐⭐⭐ [STEP 5: CURATED ESSAYS & ARTICLES SPREAD] ⭐⭐⭐
+      ⭐⭐⭐ [STEP 6: SEASONAL / ACADEMIC ISSUES & EVENTS] ⭐⭐⭐
+      ⭐⭐⭐ [STEP 7: EDITORIAL COUNCIL & DESK MESSAGE] ⭐⭐⭐
+      ⭐⭐⭐ [STEP 8: FOOTER CREDITS & RIGHTS] ⭐⭐⭐
+4. Simply replace the dummy text with your student essays, poems, or stories.
+5. Press [Ctrl + S] to save the file!
+
+--------------------------------------------------------------------------------
+STEP 2: ADDING YOUR PHOTOS (ZERO BROKEN IMAGES GUARANTEE!)
+--------------------------------------------------------------------------------
+When you first open index.html in a web browser, all photo spots show neat,
+stylish placeholder boxes with recommended photo sizes.
+
+To replace any placeholder with your own real picture, simply save your image
+into the "images" folder using the exact filename shown on that photo spot:
+
+  * images/cover.jpg          -> Main Magazine Cover (800 x 500 px)
+  * images/hero-feature.jpg   -> Top Lead Feature Story (900 x 600 px)
+  * images/article-1.jpg      -> Essay 1 Photo (600 x 500 px)
+  * images/article-2.jpg      -> Essay 2 Photo (600 x 500 px)
+  * images/article-center.jpg -> Centerpiece Tall Portrait Photo (600 x 900 px)
+  * images/article-3.jpg      -> Essay 3 Photo (600 x 500 px)
+  * images/article-4.jpg      -> Essay 4 Photo (600 x 500 px)
+  * images/editorial-desk.jpg -> Editorial Board / Group Photo (750 x 420 px)
+
+Note: If you don't have a photo for an article yet, don't worry! The template
+automatically displays a clean, branded box so your magazine never looks broken.
+
+--------------------------------------------------------------------------------
+STEP 3: HOW TO ZIP AND SUBMIT TO THE ADMIN
+--------------------------------------------------------------------------------
+1. Select all the files in this folder:
+   - index.html
+   - style.css
+   - script.js
+   - HOW_TO_EDIT.txt
+   - images (folder)
+2. Right-click on the selected files -> "Send to" -> "Compressed (zipped) folder"
+   (On Windows 11: Right-click -> "Compress to ZIP file").
+3. Name your zip file (for example: "vinay-bhavan-2025-26.zip").
+4. Hand this zip file to your College Portal Administrator!
+5. The admin will upload it through the Admin Portal, and your magazine will
+   instantly be live for the entire college to read!
+================================================================================
