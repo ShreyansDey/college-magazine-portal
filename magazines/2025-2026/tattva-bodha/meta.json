@@ -1,0 +1,16 @@
+{
+  "title": "Tattva Bodha",
+  "academic_year": "2025-2026",
+  "category": "Departmental",
+  "department": "Department of Philosophy",
+  "description": "Advaita Vedanta, epistemology, Western logic, and Indian philosophical systems.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "philosophy",
+    "vedanta",
+    "epistemology",
+    "logic"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
