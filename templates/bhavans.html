@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Residential Hostel Bhavans | RKM Vidyamandira{% endblock %}
+
+{% block content %}
+<!-- Residential Community Hub Hero (Inspired by Reference 1 & 4: Warm Clay / IIUD) -->
+<section class="bhavan-hub-hero">
+  <div class="bhavan-hero-top">
+    <div class="bhavan-hero-copy">
+      <span class="section-kicker">RESIDENTIAL GURUKULA TRADITION</span>
+      <h1 class="bhavan-main-title">5 Residential Hostel Bhavans</h1>
+      <p class="bhavan-lead">
+        At Ramakrishna Mission Vidyamandira, education is 100% residential. The five student Bhavans cultivate fraternal brotherhood, self-reliance, and literary creativity through annual hostel gazettes and wall magazines (<em>Bhitti Patrika</em>).
+      </p>
+    </div>
+
+    <div class="bhavan-hallmark-badge">
+      <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Emblem" class="hallmark-crest-img">
+      <div>
+        <span class="hallmark-title">Gurukula Living</span>
+        <span class="hallmark-sub">Character-Building &amp; Service</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive 5 Bhavans Switcher Tabs -->
+  <div class="bhavan-switcher-nav">
+    <div class="bhavan-tabs-row">
+      {% for b in bhavans %}
+      <a
+        href="{{ url_for('bhavans', bhavan_slug=b.slug) }}"
+        class="bhavan-tab-btn {% if selected_bhavan and selected_bhavan.slug == b.slug %}active{% endif %}"
+      >
+        <div class="tab-bengali-label">{{ b.bengali }}</div>
+        <div class="tab-english-label">{{ b.name }}</div>
+        <div class="tab-estd-label">ESTD {{ b.established }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Active Bhavan Spotlight Card -->
+{% if selected_bhavan %}
+<section class="active-bhavan-section">
+  <div class="active-bhavan-grid">
+    <!-- Left: Bhavan Profile Card -->
+    <div class="bhavan-profile-card">
+      <div class="bhavan-meta-pills">
+        <span class="bhavan-estd-pill">ESTD {{ selected_bhavan.established }}</span>
+        <span class="bhavan-motto-pill"><i class="fa-solid fa-seedling"></i> {{ selected_bhavan.motto }}</span>
+      </div>
+
+      <div class="bhavan-title-block">
+        <h2 class="active-bhavan-name">{{ selected_bhavan.name }}</h2>
+        <span class="active-bhavan-bengali">{{ selected_bhavan.bengali }}</span>
+      </div>
+
+      <p class="bhavan-narrative">
+        {{ selected_bhavan.description }}
+      </p>
+
+      <div class="bhavan-tradition-highlights">
+        <div class="tradition-item">
+          <i class="fa-solid fa-bell tradition-icon"></i>
+          <div>
+            <strong>Morning &amp; Evening Prayers</strong>
+            <p>Vedic chanting, prayer hall attendance, and collective meditation.</p>
+          </div>
+        </div>
+        <div class="tradition-item">
+          <i class="fa-solid fa-pen-nib tradition-icon"></i>
+          <div>
+            <strong>Bhitti Patrika (Wall Magazine)</strong>
+            <p>Hand-written and artistic literary magazines created by resident scholars.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Bhavan Publications & Gazettes -->
+    <div class="bhavan-publications-card">
+      <div class="bhavan-pub-header">
+        <h3 class="bhavan-pub-heading">Hostel Gazettes &amp; Creative Chronicles</h3>
+        <span class="bhavan-pub-badge">{{ selected_bhavan.name }}</span>
+      </div>
+
+      <div class="bhavan-editions-list">
+        {% for mag in selected_bhavan.magazines %}
+        <div class="bhavan-edition-item"
+             data-has-reader="{{ 'true' if mag.has_reader else 'false' }}"
+             data-read-url="{{ mag.read_url }}"
+             data-title="{{ mag.title }}"
+             data-department="{{ mag.department }}"
+             data-category="Hostel"
+             data-year="{{ mag.academic_year }}"
+             data-desc="{{ mag.description }}"
+             onclick="handlePublicationCardClick(this)">
+          <div class="bhavan-edition-thumb">
+            {% if mag.cover_url %}
+            <img src="{{ mag.cover_url }}" alt="{{ mag.title }} Cover" class="bhavan-cover-img" decoding="async">
+            {% else %}
+            <div class="bhavan-thumb-fallback">
+              <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Emblem" class="thumb-crest-img">
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="bhavan-edition-info">
+            <span class="bhavan-edition-session">{{ mag.academic_year }} Edition</span>
+            <h4 class="bhavan-edition-title">{{ mag.title }}</h4>
+            <p class="bhavan-edition-desc">{{ mag.description }}</p>
+            {% if mag.tags %}
+            <div class="bhavan-tags-row">
+              {% for t in mag.tags %}
+              <span class="bhavan-tag-chip">#{{ t }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="bhavan-edition-action">
+            {% if mag.has_reader %}
+            <a href="{{ mag.read_url }}" class="btn-read-bhavan" onclick="event.stopPropagation();">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Read Gazette</span>
+            </a>
+            {% else %}
+            <button type="button" class="btn-read-bhavan" onclick="event.stopPropagation(); openComingSoonModal({ title: '{{ mag.title }}', department: '{{ mag.department }}', category: 'Hostel', year: '{{ mag.academic_year }}', desc: '{{ mag.description }}' })">
+              <i class="fa-solid fa-clock"></i>
+              <span>In Compilation</span>
+            </button>
+            {% endif %}
+          </div>
+        </div>
+        {% else %}
+        <div class="bhavan-empty-state">
+          <h4>Upcoming Bhavan Gazette</h4>
+          <p>The student editorial team of <strong>{{ selected_bhavan.name }}</strong> is compiling creative writings, memoirs, and festival chronicles for the ongoing academic year.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- The 5 Bhavans Overview Grid -->
+<section class="all-bhavans-overview">
+  <div class="overview-header">
+    <span class="section-kicker">RESIDENTIAL QUARTERS</span>
+    <h2 class="overview-title">All 5 Residential Bhavans</h2>
+  </div>
+
+  <div class="bhavans-quad-grid">
+    {% for b in bhavans %}
+    <div class="bhavan-quad-card">
+      <div class="quad-header">
+        <span class="quad-bengali">{{ b.bengali }}</span>
+        <span class="quad-estd">ESTD {{ b.established }}</span>
+      </div>
+
+      <h3 class="quad-name">{{ b.name }}</h3>
+      <div class="quad-motto">
+        <span class="motto-tag">Motto:</span>
+        <span>{{ b.motto }}</span>
+      </div>
+
+      <p class="quad-desc">{{ b.description }}</p>
+
+      <div class="quad-footer">
+        <a href="{{ url_for('bhavans', bhavan_slug=b.slug) }}" class="btn-quad-explore">
+          <span>View {{ b.name }}</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
