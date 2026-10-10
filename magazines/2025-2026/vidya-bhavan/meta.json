@@ -1,0 +1,16 @@
+{
+  "title": "Vidya Bhavan Patrika",
+  "academic_year": "2025-2026",
+  "category": "Hostel",
+  "department": "Vidya Bhavan",
+  "description": "Residential hall gazette highlighting creative literature and scientific debates.",
+  "cover_image": "cover.jpg",
+  "tags": [
+    "vidya-bhavan",
+    "hostel",
+    "debates",
+    "science"
+  ],
+  "featured": false,
+  "published_at": "2026"
+}
