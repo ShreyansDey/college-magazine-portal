@@ -1,4 +1,5 @@
 # Test Plan
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                        |
@@ -21,6 +22,7 @@
 ## 2. Scope
 
 ### In Scope
+
 - Flask backend (scanner, API endpoints, admin routes)
 - Public portal UI (landing page, filters, iframe reader)
 - Admin dashboard (login, edition management, RBAC)
@@ -29,6 +31,7 @@
 - Error handling and graceful degradation
 
 ### Out of Scope
+
 - Internal content of sub-team magazine plugins (sub-team responsibility)
 - Third-party library internals
 - Browser developer tools usage
@@ -155,6 +158,7 @@
 | Open iframe reader     | 50    | 2 min    | Avg response < 1s for static files    |
 
 ### 8.2 Acceptance Criteria
+
 - Zero 5xx errors under 200 concurrent users on browse + API scenarios.
 - Scanner completes indexing 100 editions in under 500ms on startup.
 
@@ -218,6 +222,7 @@ tests/fixtures/magazines/
 ## 12. Exit Criteria
 
 The system is ready for launch when:
+
 - [ ] All MUST-priority functional requirements verified by tests
 - [ ] All security checklist items pass (from `SECURITY.md`)
 - [ ] Zero High or Critical defects open
