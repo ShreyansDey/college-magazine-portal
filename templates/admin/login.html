@@ -1,0 +1,88 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Sign In | Administrator Portal{% endblock %}
+
+{% block content %}
+<div class="admin-auth-card-container">
+  <div class="admin-auth-card">
+    <div class="auth-card-header">
+      <div class="auth-seal-frame">
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="RKMV Seal" class="auth-crest-img">
+      </div>
+      <span class="auth-kicker">RESTRICTED ACCESS</span>
+      <h1 class="auth-title">Administrator Sign In</h1>
+      <p class="auth-subtitle">Two-Factor Authentication Protected • Enter your credentials to request an access code</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('admin_bp.login') }}" class="admin-auth-form">
+      <div class="form-group">
+        <label for="email" class="form-label">
+          <i class="fa-solid fa-envelope"></i>
+          <span>Administrator Email</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          placeholder="e.g. admin@vidyamandira.ac.in"
+          required
+          autocomplete="username"
+          autofocus
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">
+          <i class="fa-solid fa-lock"></i>
+          <span>Password</span>
+        </label>
+        <div class="password-input-wrap">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter your master password"
+            required
+            autocomplete="current-password"
+          >
+          <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility()" aria-label="Toggle password visibility">
+            <i class="fa-solid fa-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-auth-submit">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Verify &amp; Send Security Code</span>
+      </button>
+    </form>
+
+    <div class="auth-card-footer">
+      <div class="auth-info-badge">
+        <i class="fa-solid fa-lock"></i>
+        <span>Bcrypt Hashed • Gmail SMTP 2FA • Session Rate-Limited</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function togglePasswordVisibility() {
+  const pwdInput = document.getElementById('password');
+  const eyeIcon = document.getElementById('eyeIcon');
+  if (pwdInput.type === 'password') {
+    pwdInput.type = 'text';
+    eyeIcon.classList.remove('fa-eye');
+    eyeIcon.classList.add('fa-eye-slash');
+  } else {
+    pwdInput.type = 'password';
+    eyeIcon.classList.remove('fa-eye-slash');
+    eyeIcon.classList.add('fa-eye');
+  }
+}
+</script>
+{% endblock %}
