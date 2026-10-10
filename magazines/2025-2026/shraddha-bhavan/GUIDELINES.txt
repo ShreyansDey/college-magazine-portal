@@ -1,0 +1,17 @@
+RAMAKRISHNA MISSION VIDYAMANDIRA — EDITORIAL SUBMISSION GUIDELINES
+=====================================================================
+
+1. FILE REQUIREMENTS:
+   - Your entry point file MUST be named 'index.html'.
+   - Place all your HTML, CSS, JS, and image assets in this directory.
+
+2. RELATIVE PATHS (CRITICAL):
+   - Always use relative links:
+     * Correct: <link rel="stylesheet" href="style.css">
+     * Correct: <img src="images/photo.jpg">
+     * Incorrect: <link rel="stylesheet" href="C:/Users/...">
+     * Incorrect: <link rel="stylesheet" href="/style.css">
+
+3. PACKAGING:
+   - Select your files and compress them into a .zip file.
+   - Hand the .zip file to the Portal Administrator for one-click upload!
