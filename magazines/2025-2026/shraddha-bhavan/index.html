@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ===================================================================== -->
+  <!-- ⭐⭐⭐ [STEP 1: CHANGE YOUR MAGAZINE TITLE & SESSION HERE] ⭐⭐⭐      -->
+  <!-- ===================================================================== -->
+  <title>Vidyamandira Student Magazine Edition | 2025–2026</title>
+
+  <!-- Google Fonts: Editorial Serif & Bold Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Editorial Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================================================================== -->
+  <!-- ⭐⭐⭐ [STEP 2: TOP EDITORIAL BAR] ⭐⭐⭐                              -->
+  <!-- You can change the session year (e.g., 2025–2026) or issue badge below -->
+  <!-- ===================================================================== -->
+  <header class="editorial-topbar">
+    <div class="topbar-left">
+      <span class="college-motto">RAMAKRISHNA MISSION VIDYAMANDIRA • BELUR MATH</span>
+    </div>
+
+    <div class="topbar-center">
+      <span class="session-badge">SESSION 2025–2026</span>
+    </div>
+
+    <div class="topbar-right">
+      <span class="edition-type-pill">ANNUAL PUBLICATION</span>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- ⭐⭐⭐ [STEP 3: MAIN TYPOGRAPHIC MASTHEAD] ⭐⭐⭐                      -->
+  <!-- Change the title below (e.g., VINAY BHAVAN, CSE AURA, RASAYAN, etc.) -->
+  <!-- ===================================================================== -->
+  <section class="masthead-container">
+    <div class="masthead-titles-wrap">
+      <!-- Massive Display Logo with Letter Peek-Through Badge -->
+      <h1 class="masthead-main-title">
+        V<span class="letter-badge-peek">I<span class="peek-dot"></span></span>DYAMANDIRA
+      </h1>
+      <span class="masthead-sub-badge">MAGAZINE GAZETTE</span>
+    </div>
+
+    <div class="masthead-tagline-bar">
+      <!-- ⭐ You can edit your department / hostel tagline here -->
+      <span class="tagline-text">ANNUAL LITERARY, SCIENTIFIC &amp; PHILOSOPHICAL COMPILATION</span>
+      <span class="tagline-dots">•</span>
+      <span class="tagline-text">ESTABLISHED RESIDENTIAL HERITAGE</span>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- EDITORIAL NAVIGATION SUB-BAR                                          -->
+  <!-- ===================================================================== -->
+  <nav class="editorial-nav-bar">
+    <div class="nav-links-track">
+      <a href="#hero-feature" class="editorial-nav-link active">Home</a>
+      <a href="#featured-spread" class="editorial-nav-link">Lead Stories</a>
+      <a href="#editorial-chronicles" class="editorial-nav-link">Chronicles</a>
+      <a href="#issue-sections" class="editorial-nav-link">Issue Sections</a>
+      <a href="#editorial-council" class="editorial-nav-link">Editorial Council</a>
+      <a href="#submission-info" class="editorial-nav-link">Guidelines</a>
+    </div>
+  </nav>
+
+  <!-- ===================================================================== -->
+  <!-- ⭐⭐⭐ [STEP 4: HERO FEATURE STORY (LEAD ARTICLE)] ⭐⭐⭐             -->
+  <!-- ===================================================================== -->
+  <section class="hero-feature-section" id="hero-feature">
+    <div class="feature-split-grid">
+
+      <!-- Left Column: Story Headline & Lead Excerpt -->
+      <div class="feature-copy-col">
+        <div class="kicker-row">
+          <span class="kicker-pill">FEATURE STORY</span>
+          <span class="kicker-meta">ISSUE VOL. XXIV • BY STUDENT EDITORIAL BOARD</span>
+        </div>
+
+        <!-- ⭐ EDIT YOUR MAIN ARTICLE TITLE BELOW -->
+        <h2 class="feature-headline">
+          THE SPIRIT OF CHARACTER, SCHOLARSHIP AND SERVICE
+        </h2>
+
+        <!-- ⭐ EDIT YOUR ARTICLE SUMMARY BELOW -->
+        <p class="feature-lead-text">
+          A commemorative student reflection exploring our residential journey at Vidyamandira:
+          the morning prayer chanting, timeless philosophical discourses, relentless laboratory experiments,
+          and the enduring fellowship forged in the halls of Belur Math.
+        </p>
+
+        <div class="feature-action-row">
+          <a href="#featured-spread" class="btn-editorial-explore">
+            <span>Explore Lead Section</span>
+            <span class="btn-arrow">↗</span>
+          </a>
+        </div>
+
+        <!-- Metric Counter Strip (Inspired by 25K / 13K / 16K in screenshot) -->
+        <div class="editorial-metrics-strip">
+          <div class="metric-item">
+            <span class="metric-num">24</span>
+            <span class="metric-label">Scholarly Essays</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-num">16</span>
+            <span class="metric-label">Poems &amp; Lyrics</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-num">1941</span>
+            <span class="metric-label">Year Founded</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Featured Image Slot with Automatic Fallback -->
+      <div class="feature-visual-col">
+        <div class="image-slot-container">
+          <!-- ⭐ TO ADD YOUR REAL PHOTO: Drop a picture named 'hero-feature.jpg' in the images folder! -->
+          <img
+            src="images/hero-feature.jpg"
+            alt="Lead Feature Story"
+            class="editorial-live-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <!-- Automatic Placeholder Box (Shows when image is not yet uploaded) -->
+          <div class="img-placeholder-card">
+            <div class="placeholder-icon">📷</div>
+            <strong class="placeholder-title">LEAD ARTICLE FEATURE PHOTO</strong>
+            <span class="placeholder-dims">Recommended Size: 900 × 600 px (3:2)</span>
+            <span class="placeholder-file-target">File Location: <code>images/hero-feature.jpg</code></span>
+            <p class="placeholder-desc">Drop your photo into the images folder and rename it to hero-feature.jpg. It will immediately show up here!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- EDITORIAL MARQUEE TICKER (Recent Collections Banner)                  -->
+  <!-- ===================================================================== -->
+  <div class="editorial-marquee-bar">
+    <div class="marquee-track">
+      <span>RESIDENTIAL CHRONICLES</span> •
+      <span>SCHOLARLY DISCOURSES</span> •
+      <span>CREATIVE LITERATURE</span> •
+      <span>CAMPUS ESSAYS</span> •
+      <span>RAMAKRISHNA MISSION VIDYAMANDIRA 2025–2026</span> •
+      <span>RESIDENTIAL CHRONICLES</span> •
+      <span>SCHOLARLY DISCOURSES</span> •
+      <span>CREATIVE LITERATURE</span>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- ⭐⭐⭐ [STEP 5: CURATED ESSAYS & ARTICLES SPREAD] ⭐⭐⭐               -->
+  <!-- (Asymmetrical Magazine Grid Layout)                                   -->
+  <!-- ===================================================================== -->
+  <section class="editorial-spread-section" id="featured-spread">
+    <div class="section-title-header">
+      <h3 class="section-display-title">CURATED ESSAYS &amp; CHRONICLES</h3>
+      <p class="section-sub-copy">Selected student contributions, literary essays, and laboratory highlights from this session.</p>
+    </div>
+
+    <div class="asymmetric-magazine-grid">
+
+      <!-- Column 1 (Left 2 Stacked Cards) -->
+      <div class="grid-col col-left">
+        <!-- Article Card 1 -->
+        <article class="magazine-story-card">
+          <div class="story-image-wrap">
+            <img src="images/article-1.jpg" alt="Article 1" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card compact">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Article 1 Photo</span>
+              <span class="placeholder-dims">600 × 500 px</span>
+              <span class="placeholder-file-target"><code>images/article-1.jpg</code></span>
+            </div>
+          </div>
+          <div class="story-info">
+            <span class="story-category-kicker">PHILOSOPHY &amp; VALUES</span>
+            <!-- ⭐ EDIT TITLE 1 BELOW -->
+            <h4 class="story-title">Harmony of Mind and Purpose</h4>
+            <!-- ⭐ EDIT AUTHOR 1 BELOW -->
+            <span class="story-author">By Sourav Das • Semester IV</span>
+            <!-- ⭐ EDIT SNIPPET 1 BELOW -->
+            <p class="story-snippet">Reflections on Swami Vivekananda's lectures on education, character-building, and self-reliance in modern collegiate life.</p>
+          </div>
+        </article>
+
+        <!-- Article Card 2 -->
+        <article class="magazine-story-card">
+          <div class="story-image-wrap">
+            <img src="images/article-2.jpg" alt="Article 2" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card compact">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Article 2 Photo</span>
+              <span class="placeholder-dims">600 × 500 px</span>
+              <span class="placeholder-file-target"><code>images/article-2.jpg</code></span>
+            </div>
+          </div>
+          <div class="story-info">
+            <span class="story-category-kicker">SCIENTIFIC INQUIRY</span>
+            <!-- ⭐ EDIT TITLE 2 BELOW -->
+            <h4 class="story-title">Frontiers in Quantum Information</h4>
+            <!-- ⭐ EDIT AUTHOR 2 BELOW -->
+            <span class="story-author">By Aniket Sen • Dept. of Physics</span>
+            <!-- ⭐ EDIT SNIPPET 2 BELOW -->
+            <p class="story-snippet">Exploring entanglement, qubit coherence, and experimental protocols tested in our college laboratory facilities.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Column 2 (Center Tall Feature Card) -->
+      <div class="grid-col col-center">
+        <article class="magazine-story-card center-hero-story">
+          <div class="story-image-wrap tall-aspect">
+            <img src="images/article-center.jpg" alt="Centerpiece Feature" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card tall">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Centerpiece Tall Photo</span>
+              <span class="placeholder-dims">600 × 900 px (Vertical 2:3)</span>
+              <span class="placeholder-file-target"><code>images/article-center.jpg</code></span>
+              <p class="placeholder-desc">This is the centerpiece tall portrait image slot from the Exhibition Magazine layout.</p>
+            </div>
+          </div>
+          <div class="story-info center-info">
+            <span class="story-category-kicker">RESIDENTIAL LIFE RETROSPECTIVE</span>
+            <!-- ⭐ EDIT CENTER ARTICLE TITLE BELOW -->
+            <h4 class="story-title-large">A Symphony of Bell, River &amp; Study</h4>
+            <!-- ⭐ EDIT CENTER AUTHOR BELOW -->
+            <span class="story-author">By Residential Student Council</span>
+            <!-- ⭐ EDIT CENTER SNIPPET BELOW -->
+            <p class="story-snippet">
+              From the morning river breeze over the sacred Ganges to late-night group discussions before semester examinations,
+              the residential brotherhood at Vidyamandira weaves a lifelong tapestry of mutual support, perseverance, and joyful companionship.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Column 3 (Right 2 Stacked Cards) -->
+      <div class="grid-col col-right">
+        <!-- Article Card 3 -->
+        <article class="magazine-story-card">
+          <div class="story-image-wrap">
+            <img src="images/article-3.jpg" alt="Article 3" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card compact">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Article 3 Photo</span>
+              <span class="placeholder-dims">600 × 500 px</span>
+              <span class="placeholder-file-target"><code>images/article-3.jpg</code></span>
+            </div>
+          </div>
+          <div class="story-info">
+            <span class="story-category-kicker">LITERARY REFLECTIONS</span>
+            <!-- ⭐ EDIT TITLE 3 BELOW -->
+            <h4 class="story-title">The Poetry of the Solitary Evening</h4>
+            <!-- ⭐ EDIT AUTHOR 3 BELOW -->
+            <span class="story-author">By Debayan Roy • Semester VI</span>
+            <!-- ⭐ EDIT SNIPPET 3 BELOW -->
+            <p class="story-snippet">Meditations on silence, solitude, and classic Bengali verses penned beneath the campus neem and banyan trees.</p>
+          </div>
+        </article>
+
+        <!-- Article Card 4 -->
+        <article class="magazine-story-card">
+          <div class="story-image-wrap">
+            <img src="images/article-4.jpg" alt="Article 4" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card compact">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Article 4 Photo</span>
+              <span class="placeholder-dims">600 × 500 px</span>
+              <span class="placeholder-file-target"><code>images/article-4.jpg</code></span>
+            </div>
+          </div>
+          <div class="story-info">
+            <span class="story-category-kicker">HISTORY &amp; ARCHIVES</span>
+            <!-- ⭐ EDIT TITLE 4 BELOW -->
+            <h4 class="story-title">Chronicles of Belur Math Architecture</h4>
+            <!-- ⭐ EDIT AUTHOR 4 BELOW -->
+            <span class="story-author">By Pradipto Mondal • Dept. of History</span>
+            <!-- ⭐ EDIT SNIPPET 4 BELOW -->
+            <p class="story-snippet">Tracing Swami Vivekananda's architectural vision synthesizing Hindu, Buddhist, Islamic, and Christian sacred forms.</p>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- ⭐⭐⭐ [STEP 6: SEASONAL / ACADEMIC ISSUES & EVENTS] ⭐⭐⭐            -->
+  <!-- (Vertical Event Strips)                                               -->
+  <!-- ===================================================================== -->
+  <section class="issue-strips-section" id="issue-sections">
+    <div class="section-title-header">
+      <h3 class="section-display-title">ACADEMIC &amp; CULTURAL ISSUES</h3>
+      <p class="section-sub-copy">Four seasonal volumes published by student editorial committees throughout the academic year.</p>
+    </div>
+
+    <div class="issue-columns-container">
+
+      <!-- Issue 1 -->
+      <div class="issue-column-card">
+        <div class="issue-vertical-label">ISSUE 01 • MONSOON</div>
+        <div class="issue-card-content">
+          <div class="issue-image-slot">
+            <img src="images/issue-1.jpg" alt="Issue 1" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card mini">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Issue 1 Image</span>
+              <span class="placeholder-dims">400 × 260 px</span>
+              <span class="placeholder-file-target"><code>images/issue-1.jpg</code></span>
+            </div>
+          </div>
+          <span class="issue-date">JULY – AUGUST 2025</span>
+          <h4 class="issue-title">Induction &amp; Rainy Day Chronicles</h4>
+          <p class="issue-desc">Welcoming freshers, hostel orientation, and the first seasonal literary wall magazine releases.</p>
+        </div>
+      </div>
+
+      <!-- Issue 2 -->
+      <div class="issue-column-card">
+        <div class="issue-vertical-label">ISSUE 02 • AUTUMN</div>
+        <div class="issue-card-content">
+          <div class="issue-image-slot">
+            <img src="images/issue-2.jpg" alt="Issue 2" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card mini">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Issue 2 Image</span>
+              <span class="placeholder-dims">400 × 260 px</span>
+              <span class="placeholder-file-target"><code>images/issue-2.jpg</code></span>
+            </div>
+          </div>
+          <span class="issue-date">OCTOBER – NOVEMBER 2025</span>
+          <h4 class="issue-title">Saradiya Mahotsav &amp; Puja Special</h4>
+          <p class="issue-desc">Celebration of Sri Sri Durga Puja at Belur Math, student devotional music, and festive poetry collections.</p>
+        </div>
+      </div>
+
+      <!-- Issue 3 -->
+      <div class="issue-column-card">
+        <div class="issue-vertical-label">ISSUE 03 • WINTER</div>
+        <div class="issue-card-content">
+          <div class="issue-image-slot">
+            <img src="images/issue-3.jpg" alt="Issue 3" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card mini">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Issue 3 Image</span>
+              <span class="placeholder-dims">400 × 260 px</span>
+              <span class="placeholder-file-target"><code>images/issue-3.jpg</code></span>
+            </div>
+          </div>
+          <span class="issue-date">DECEMBER 2025 – JANUARY 2026</span>
+          <h4 class="issue-title">National Youth Day &amp; Sports Meet</h4>
+          <p class="issue-desc">Swamiji's Birth Tithi, annual athletic tournament, seminar debates, and winter social service drives.</p>
+        </div>
+      </div>
+
+      <!-- Issue 4 -->
+      <div class="issue-column-card">
+        <div class="issue-vertical-label">ISSUE 04 • ANNUAL</div>
+        <div class="issue-card-content">
+          <div class="issue-image-slot">
+            <img src="images/issue-4.jpg" alt="Issue 4" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder-card mini">
+              <span class="placeholder-icon">📷</span>
+              <span class="placeholder-title">Issue 4 Image</span>
+              <span class="placeholder-dims">400 × 260 px</span>
+              <span class="placeholder-file-target"><code>images/issue-4.jpg</code></span>
+            </div>
+          </div>
+          <span class="issue-date">MARCH – APRIL 2026</span>
+          <h4 class="issue-title">Valedictory &amp; Annual Convocation</h4>
+          <p class="issue-desc">Farewell essays for graduating batches, research honours roll, and the final annual compendium.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- ⭐⭐⭐ [STEP 7: ABOUT US & EDITORIAL COUNCIL SPREAD] ⭐⭐⭐             -->
+  <!-- (Editorial Message, Schedule & Timeline, Council Members & Contact)   -->
+  <!-- ===================================================================== -->
+  <section class="about-council-section" id="editorial-council">
+    <div class="council-layout-grid">
+
+      <!-- Left Column: Editorial Message & Large Photo -->
+      <div class="council-message-col">
+        <span class="kicker-pill">FROM THE DESK</span>
+        <!-- ⭐ EDIT PRINCIPAL / SUPERINTENDENT MESSAGE TITLE BELOW -->
+        <h3 class="message-heading">FOSTERING THOUGHT, INQUIRY &amp; BROTHERHOOD</h3>
+
+        <div class="council-feature-image">
+          <img src="images/editorial-desk.jpg" alt="Editorial Desk" class="editorial-live-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder-card medium">
+            <span class="placeholder-icon">📷</span>
+            <span class="placeholder-title">Editorial Desk / Board Photo</span>
+            <span class="placeholder-dims">750 × 420 px (16:9)</span>
+            <span class="placeholder-file-target"><code>images/editorial-desk.jpg</code></span>
+            <p class="placeholder-desc">Group photo of the student editorial committee or hostel superintendent.</p>
+          </div>
+        </div>
+
+        <div class="message-body-copy">
+          <p>
+            Welcome to the official student publication for Session 2025–2026. This magazine is not merely an assemblage of printed sheets,
+            but a living testament to the intellectual vitality, spiritual contemplation, and creative passion nurtured within our residential college.
+          </p>
+          <p>
+            Every essay, verse, and scientific monologue presented here has been curated by student editors, peer-reviewed for scholarly merit,
+            and crafted in the immortal spirit of Swami Vivekananda: <em>"Arise, awake, and stop not till the goal is reached."</em>
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Stitched Dashed-Border Info Cards -->
+      <div class="council-info-col" id="submission-info">
+
+        <!-- Card 1: Stitched Desk Hours / Deadlines -->
+        <div class="stitched-info-card">
+          <div class="card-inner-header">
+            <span class="stitched-icon">⏱️</span>
+            <h4 class="stitched-title">EDITORIAL TIMELINE &amp; DATES</h4>
+          </div>
+          <div class="dashed-schedule-list">
+            <div class="schedule-row">
+              <span class="sched-label">First Draft Submissions</span>
+              <span class="sched-dots"></span>
+              <span class="sched-val">August 15, 2025</span>
+            </div>
+            <div class="schedule-row">
+              <span class="sched-label">Peer Review &amp; Proofreading</span>
+              <span class="sched-dots"></span>
+              <span class="sched-val">September 20, 2025</span>
+            </div>
+            <div class="schedule-row">
+              <span class="sched-label">Final Galleys to Press</span>
+              <span class="sched-dots"></span>
+              <span class="sched-val">November 05, 2025</span>
+            </div>
+            <div class="schedule-row">
+              <span class="sched-label">Official Portal Release</span>
+              <span class="sched-dots"></span>
+              <span class="sched-val">Annual Day 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Editorial Council Members -->
+        <div class="stitched-info-card">
+          <div class="card-inner-header">
+            <span class="stitched-icon">👥</span>
+            <h4 class="stitched-title">EDITORIAL COUNCIL</h4>
+          </div>
+          <div class="council-members-list">
+            <div class="member-item">
+              <strong>Chief Patron:</strong> Revered Swami Shastrajnananda Maharaj
+            </div>
+            <div class="member-item">
+              <strong>Faculty Advisor:</strong> Dr. S. K. Bhattacharya
+            </div>
+            <div class="member-item">
+              <strong>Student Editor-in-Chief:</strong> Shreyans Dey (Semester VI)
+            </div>
+            <div class="member-item">
+              <strong>Sub-Editors:</strong> R. Sen, A. Mukherjee, S. Chakraborty
+            </div>
+            <div class="member-item">
+              <strong>Cover &amp; Layout Design:</strong> Student Media Committee
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Submission Desk & Inquiries -->
+        <div class="stitched-info-card">
+          <div class="card-inner-header">
+            <span class="stitched-icon">📫</span>
+            <h4 class="stitched-title">GET IN TOUCH / SUBMISSIONS</h4>
+          </div>
+          <div class="contact-details-list">
+            <div class="contact-item">
+              <span class="contact-key">Editorial Office:</span>
+              <span class="contact-val">Room 204, Main Academic Block</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-key">Hostel Desk:</span>
+              <span class="contact-val">Superintendent's Office</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-key">Article Submission:</span>
+              <span class="contact-val">editorial@vidyamandira.ac.in</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-key">Format Guidelines:</span>
+              <span class="contact-val">PDF or Word (Under 2,500 words)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- ⭐⭐⭐ [STEP 8: FOOTER CREDITS & RIGHTS] ⭐⭐⭐                       -->
+  <!-- ===================================================================== -->
+  <footer class="editorial-dark-footer">
+    <div class="footer-inner-grid">
+      <div class="footer-col">
+        <span class="footer-kicker">INSTITUTION</span>
+        <h5 class="footer-heading">RAMAKRISHNA MISSION VIDYAMANDIRA</h5>
+        <p class="footer-subtext">Autonomous Residential College with CPE &amp; NAAC A++ Status • Belur Math, Howrah 711202.</p>
+      </div>
+
+      <div class="footer-col">
+        <span class="footer-kicker">SECTIONS</span>
+        <ul class="footer-links-list">
+          <li><a href="#hero-feature">Lead Feature Story</a></li>
+          <li><a href="#featured-spread">Selected Dissertations</a></li>
+          <li><a href="#issue-sections">Four Seasonal Issues</a></li>
+          <li><a href="#editorial-council">Editorial Council</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <span class="footer-kicker">EDITORIAL DESK</span>
+        <p class="footer-subtext">Curated and published by the student editorial committee under the guidance of college faculty.</p>
+        <span class="footer-badge-tag">OFFICIAL GAZETTE</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <span>© 2025–2026 RAMAKRISHNA MISSION VIDYAMANDIRA • ALL RIGHTS RESERVED</span>
+      <span>BELUR MATH RESIDENTIAL COLLEGIATE PRESS</span>
+    </div>
+  </footer>
+
+  <!-- Light Vanilla Script -->
+  <script src="script.js"></script>
+</body>
+</html>
