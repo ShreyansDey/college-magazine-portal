@@ -1,4 +1,5 @@
 # Product Requirements Document (PRD)
+
 ## College Unified Magazine Portal
 
 | Field               | Detail                          |
@@ -16,6 +17,7 @@
 Student publications — Annual Magazines, Departmental Journals, and Bhavan (Hostel) Magazines — are currently scattered across USB drives, email attachments, and individual team websites. There is no unified, searchable, always-accessible place for students and faculty to browse all college publications.
 
 **Core Problems:**
+
 - Editions are hard to find after the academic year ends.
 - Each team builds redundant infrastructure (hosting, viewer, etc.).
 - No consistent presentation or branding.
@@ -47,24 +49,28 @@ Build a centralized, beautifully designed web portal that acts as a permanent di
 ## 4. Target Users & Personas
 
 ### 4.1 Priya — The Curious Student
+
 - **Background:** 2nd-year undergraduate, wants to read last year's departmental magazine.
 - **Goal:** Find and read a specific edition quickly.
 - **Pain Point:** Doesn't know which website or drive to check.
 - **Need:** Clear navigation by department and year.
 
 ### 4.2 Prof. Mehta — The Faculty Coordinator
+
 - **Background:** Oversees the annual magazine committee.
 - **Goal:** Share the annual magazine with the whole college community.
 - **Pain Point:** No permanent, official link to share.
 - **Need:** A stable URL they can share via email or WhatsApp.
 
 ### 4.3 Rohan — The Sub-Team Developer
+
 - **Background:** CS department student, builds the CS magazine website.
 - **Goal:** Publish the magazine without managing hosting.
 - **Pain Point:** Doesn't know how to deploy to a server.
 - **Need:** Submit code via PR to a common repo — portal handles the rest.
 
 ### 4.4 Admin Anjali — The Portal Administrator
+
 - **Background:** Technical admin / senior student who maintains the portal.
 - **Goal:** Review submitted editions and publish them when ready.
 - **Pain Point:** Manual file copying and coordination across teams.
@@ -75,6 +81,7 @@ Build a centralized, beautifully designed web portal that acts as a permanent di
 ## 5. User Stories
 
 ### Public Visitor
+
 - **US-01:** As a visitor, I want to see all published editions on the landing page so I can quickly browse.
 - **US-02:** As a visitor, I want to filter editions by year and category so I find what I'm looking for fast.
 - **US-03:** As a visitor, I want to read a magazine directly in the browser without downloading files.
@@ -82,11 +89,13 @@ Build a centralized, beautifully designed web portal that acts as a permanent di
 - **US-05:** As a visitor on mobile, I want the portal to be fully usable on my phone.
 
 ### Sub-Team Contributor
+
 - **US-06:** As a contributor, I want clear instructions on how to structure my files and submit them.
 - **US-07:** As a contributor, I want to know exactly what `meta.json` fields are required.
 - **US-08:** As a contributor, I want a template/starter directory to reduce setup time.
 
 ### Admin
+
 - **US-09:** As an admin, I want to log in securely to the admin dashboard.
 - **US-10:** As an admin, I want to see all submitted editions (published and unpublished).
 - **US-11:** As an admin, I want to publish or unpublish an edition with a single click.
