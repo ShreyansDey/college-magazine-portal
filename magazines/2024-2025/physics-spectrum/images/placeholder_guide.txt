@@ -1,0 +1,10 @@
+Save your magazine photos here!
+Recommended filenames:
+- cover.jpg (Main Cover 800x500)
+- hero-feature.jpg (Lead Story 900x600)
+- article-1.jpg
+- article-2.jpg
+- article-center.jpg (Tall Portrait 600x900)
+- article-3.jpg
+- article-4.jpg
+- editorial-desk.jpg
